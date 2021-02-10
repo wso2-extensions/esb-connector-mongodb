@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+   WSO2 Inc. licenses this file to you under the Apache License,
+   Version 2.0 (the "License"); you may not use this file except
+   in compliance with the License.
+   You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<template name="init" onError="fault" xmlns="http://ws.apache.org/ns/synapse">
+    <!--common params-->
+    <parameter name="name" description="Unique name the connection is identified by"/>
+    <parameter name="connectionType" description="Connection string type (protocol) that should be used to establish the connection with the MongoDB."/>
+    <parameter name="database" description="The name of the database available in the MongoDB server."/>
+    <!--URI connection params-->
+    <parameter name="connectionURI" description="The URI which can be used to create a MongoDB instance."/>
+    <!--parametrized connection params-->
+    <parameter name="host" description="The host name of the MongoDB instance is running."/>
+    <parameter name="port" description="The port number of the MongoDB instance is running."/>
+    <parameter name="seedList" description="The list of host and port pairs of the MongoDB instances."/>
+    <parameter name="username" description="The username to authenticate the database associated with the user."/>
+    <parameter name="password" description="The password to authenticate the database associated with the user."/>
+    <!--replica set options params-->
+    <parameter name="replicaSet" description="Specifies the name of the replica set, if the mongod is a member of a replica set."/>
+    <!--authentication options params-->
+    <parameter name="authSource" description="Specify the database name associated with the user’s credentials."/>
+    <parameter name="authMechanism" description="Specify the authentication mechanism that MongoDB will use to authenticate the connection."/>
+    <parameter name="authMechanismProperties"
+               description="Specify properties for the specified authMechanism as a comma-separated list of colon-separated key-value pairs."/>
+    <parameter name="gssapiServiceName" description="Sets the Kerberos service name when connecting to Kerberized MongoDB instances."/>
+    <!--write concern options params-->
+    <parameter name="w" description="Corresponds to the write concern w Option."/>
+    <parameter name="wtimeoutMS" description="Corresponds to the write concern wtimeout."/>
+    <parameter name="journal" description="Corresponds to the write concern j Option option."/>
+    <!--connection pool options params-->
+    <parameter name="maxPoolSize" description="The maximum number of connections in the connection pool. The default value is 100."/>
+    <parameter name="minPoolSize" description="The minimum number of connections in the connection pool. The default value is 0."/>
+    <parameter name="maxIdleTimeMS"
+               description="The maximum number of milliseconds that a connection can remain idle in the pool before being removed and closed."/>
+    <parameter name="waitQueueMultiple"
+               description="A number that is multiplied by the maxPoolSize value, to provide the max no of threads allowed to wait for a connection."/>
+    <parameter name="waitQueueTimeoutMS" description="The maximum time in milliseconds that a thread can wait for a connection."/>
+    <!--TLS options params-->
+    <parameter name="ssl" description="A boolean to enable or disables TLS/SSL for the connection."/>
+    <parameter name="sslInvalidHostNamesAllowed" description="Disables hostname validation of the certificate presented by the mongod instance."/>
+    <!--timeout options params-->
+    <parameter name="connectTimeoutMS" description="The time in milliseconds to attempt a connection before timing out."/>
+    <parameter name="socketTimeoutMS" description="The time in milliseconds to attempt a send or receive on a socket before the attempt times out."/>
+    <!--compression options params-->
+    <parameter name="compressors"
+               description="comma-separated string of compressors to enable network compression for communication between the client and a mongo instance."/>
+    <parameter name="zlibCompressionLevel" description="An integer that specifies the compression level if using zlib for network compression."/>
+    <!--read concern options params-->
+    <parameter name="readConcernLevel" description="The level of isolation."/>
+    <!--read preference options params-->
+    <parameter name="readPreference" description="Specifies the read preferences for this connection."/>
+    <parameter name="maxStalenessSeconds"
+               description="Specifies, in seconds, how stale a secondary can be before the client stops using it for read operations."/>
+    <parameter name="readPreferenceTags" description="Specifies the tags document as a comma-separated list of colon-separated key-value pairs."/>
+    <!--server selection and discovery options params-->
+    <parameter name="localThresholdMS"
+               description="The size (in milliseconds) of the latency window for selecting among multiple suitable MongoDB instances."/>
+    <parameter name="serverSelectionTimeoutMS"
+               description="Specifies how long (in milliseconds) to block for server selection before throwing an exception."/>
+    <parameter name="serverSelectionTryOnce" description="Single-threaded drivers only."/>
+    <parameter name="heartbeatFrequencyMS" description="Controls when the driver checks the state of the MongoDB deployment."/>
+    <!--miscellaneous configuration params-->
+    <parameter name="appName" description="Specify a custom app name."/>
+    <parameter name="retryReads" description="Enables retryable reads."/>
+    <parameter name="retryWrites" description="Enable retryable writes."/>
+    <parameter name="uuidRepresentation" description="The representation to use when converting a UUID to a BSON binary value."/>
+    <sequence>
+        <property name="name" expression="$func:name"/>
+        <class name="org.wso2.carbon.connector.operations.MongoConfig"/>
+    </sequence>
+</template>

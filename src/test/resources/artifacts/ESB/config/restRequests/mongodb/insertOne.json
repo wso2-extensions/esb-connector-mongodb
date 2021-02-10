@@ -1,0 +1,7 @@
+{
+    "collection": "TestCollection",
+    "document": {
+        "_id": "123456",
+        "name": "Jane Doe"
+    }
+}

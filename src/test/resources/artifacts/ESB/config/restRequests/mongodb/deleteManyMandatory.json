@@ -1,0 +1,6 @@
+{
+    "collection": "TestCollection",
+    "query": {
+        "_id": "1234"
+    }
+}

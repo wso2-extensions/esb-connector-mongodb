@@ -1,0 +1,97 @@
+{
+    "connectorName": "mongodb",
+    "operationName": "insertMany",
+    "title": "InsertManyDocuments",
+    "help": "<h1>InsertManyDocuments</h1> <b>The insertMany operation</b>",
+    "elements": [
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "General",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "configRef",
+                            "displayName": "Connection",
+                            "inputType": "connection",
+                            "allowedConnectionTypes": [
+                                "STANDARD",
+                                "DSL",
+                                "URI"
+                            ],
+                            "defaultType": "connection.standard",
+                            "defaultValue": "",
+                            "required": "true",
+                            "helpTip": "MongoDB connection to be used."
+                        }
+                    },
+                    {
+                        "type": "attributeGroup",
+                        "value": {
+                            "groupName": "Search",
+                            "elements": [
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "search",
+                                        "displayName": "Search",
+                                        "inputType": "searchBox",
+                                        "defaultValue": "",
+                                        "required": "false",
+                                        "helpTip": "Search for an attribute using the display name"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "attributeGroup",
+                        "value": {
+                            "groupName": "Basic",
+                            "elements": [
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "collection",
+                                        "displayName": "Collection",
+                                        "inputType": "stringOrExpression",
+                                        "defaultValue": "",
+                                        "required": "true",
+                                        "helpTip": "A grouping of MongoDB documents."
+                                    }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "documents",
+                                        "displayName": "Documents",
+                                        "inputType": "textAreaOrExpression",
+                                        "defaultValue": "",
+                                        "required": "true",
+                                        "helpTip": "An array of documents to insert into the collection."
+                                    }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "ordered",
+                                        "displayName": "Ordered",
+                                        "inputType": "comboOrExpression",
+                                        "comboValues": [
+                                            "True",
+                                            "False"
+                                        ],
+                                        "defaultValue": "True",
+                                        "required": "true",
+                                        "helpTip": "Specifies whether the insert should be ordered or unordered."
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
