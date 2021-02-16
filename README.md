@@ -1,12 +1,12 @@
 # MongoDB Connector
 
-The MongoDB Connector allows you to perform insert, find, update and delete operations in MongoDB database.
+The MongoDB Connector allows you to connect to the MongoDB database via different connection URI and perform CRUD operations on the database.
 
 ## Compatibility
 
-| Connector version | Supported WSO2 ESB/EI version |  
-| ------------- |------------- |  
-| [1.0.0](https://github.com/wso2-extensions/esb-connector-mongodb/tree/v1.0.0)        | EI 6.6.0 |  
+| Connector version | Supported WSO2 ESB/EI version |
+| ------------- |------------- |
+|  1.0.0        | EI 6.6.0, EI 7.1.0 |
 
 ## Documentation
 
@@ -18,7 +18,7 @@ Follow the steps given below to build the MongoDB Connector from the source code
 
 1. Get a clone or download the source from [Github](https://github.com/wso2-extensions/esb-connector-mongodb).
 2. Run the following Maven command from the `esb-connector-mongodb` directory: `mvn clean install`.
-3. The ZIP file with the MongoDB Connector is created in the `esb-connector-mongodb/target` directory.
+3. The ZIP file with the MongoDB Connector will be created in the `esb-connector-mongodb/target` directory.
 
 ## How you can contribute
 
