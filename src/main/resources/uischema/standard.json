@@ -1,0 +1,547 @@
+{
+    "connectorName": "mongodb",
+    "connectionName": "STANDARD",
+    "title": "Standard Connection Parameters",
+    "help": "<h1>MongoDB Connector</h1> <b>The mongodb connector supports URI and parameters for establishing MongoDB connection.</b>",
+    "elements": [
+        {
+            "type": "attribute",
+            "value": {
+                "name": "connectionName",
+                "displayName": "Connection Name",
+                "inputType": "string",
+                "defaultValue": "MONGODB_CONNECTION_1",
+                "required": "true",
+                "helpTip": "The name for the MongoDB connection",
+                "validation": "nameWithoutSpecialCharacters"
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "General",
+                "elements": [
+                    {
+                        "type": "attributeGroup",
+                        "value": {
+                            "groupName": "Standalone",
+                            "elements": [
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "host",
+                                        "displayName": "Host",
+                                        "inputType": "stringOrExpression",
+                                        "defaultValue": "localhost",
+                                        "required": "false",
+                                        "helpTip": "The host and port where the MongoDB instance is running."
+                                    }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "port",
+                                        "displayName": "Port",
+                                        "inputType": "stringOrExpression",
+                                        "defaultValue": "27017",
+                                        "required": "false",
+                                        "helpTip": "The host and port where the MongoDB instance is running."
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "attributeGroup",
+                        "value": {
+                            "groupName": "Replica Set or Sharded Cluster",
+                            "elements": [
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "seedList",
+                                        "displayName": "Seed List",
+                                        "inputType": "stringOrExpression",
+                                        "defaultValue": "",
+                                        "required": "false",
+                                        "helpTip": "The list of host and port pairs."
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "attributeGroup",
+                        "value": {
+                            "groupName": "Basic",
+                            "elements": [
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "database",
+                                        "displayName": "Database",
+                                        "inputType": "stringOrExpression",
+                                        "defaultValue": "",
+                                        "required": "true",
+                                        "helpTip": "The name of the database."
+                                    }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "username",
+                                        "displayName": "Username",
+                                        "inputType": "stringOrExpression",
+                                        "defaultValue": "",
+                                        "required": "false",
+                                        "helpTip": "User's authentication credentials."
+                                    }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "password",
+                                        "displayName": "Password",
+                                        "inputType": "stringOrExpression",
+                                        "defaultValue": "",
+                                        "required": "false",
+                                        "helpTip": "User's authentication credentials."
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Replica Set",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "replicaSet",
+                            "displayName": "Replica Set",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Specifies the name of the replica set."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Authentication",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "authSource",
+                            "displayName": "Auth Source",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Specifies the database name associated with the user’s credentials."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "authMechanism",
+                            "displayName": "Auth Mechanism",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Specify the authentication mechanism that MongoDB will use to authenticate the connection."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "authMechanismProperties",
+                            "displayName": "Auth Mechanism Properties",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Specify properties for the specified authMechanism as a comma-separated list of colon-separated key-value pairs."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "gssapiServiceName",
+                            "displayName": "Gssapi Service Name",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Set the Kerberos service name when connecting to Kerberized MongoDB instances."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Write Concern",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "w",
+                            "displayName": "Write Concern W Option",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Corresponds to the write concern w Option."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "wtimeoutMS",
+                            "displayName": "Write Concern Timeout MS",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Specifies a time limit, in milliseconds, for the write concern."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "journal",
+                            "displayName": "Journal",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Corresponds to the write concern j Option option."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Connection Pool",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "maxPoolSize",
+                            "displayName": "Maximum Pool Size",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The maximum number of connections in the connection pool."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "minPoolSize",
+                            "displayName": "Minimum Pool Size",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The minimum number of connections in the connection pool."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "maxIdleTimeMS",
+                            "displayName": "Maximum Idle Time MS",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The maximum number of milliseconds that a connection can remain idle in the pool before being removed and closed."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "waitQueueMultiple",
+                            "displayName": "Wait Queue Multiple",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The maximum number of threads allowed to wait for a connection to become available from the pool."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "waitQueueTimeoutMS",
+                            "displayName": "Wait Queue Timeout MS",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The maximum time in milliseconds that a thread can wait for a connection to become available."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "SSL",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "ssl",
+                            "displayName": "SSL",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The boolean to enable or disables TLS/SSL for the connection."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "sslInvalidHostNamesAllowed",
+                            "displayName": "SSL Invalid Host Names Allowed",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Disables hostname validation of the certificate presented by the mongod/mongos instance."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Timeout",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "connectTimeoutMS",
+                            "displayName": "Connect Timeout MS",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The time in milliseconds to attempt a connection before timing out."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "socketTimeoutMS",
+                            "displayName": "Socket Timeout MS",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The time in milliseconds to attempt a send or receive on a socket before the attempt times out."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Compression",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "compressors",
+                            "displayName": "Compressors",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Comma-delimited string of compressors to enable network compression for communication between this client and a mongod/mongos instance."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "zlibCompressionLevel",
+                            "displayName": "Zlib Compression Level",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "An integer that specifies the compression level if using zlib for network compression."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Read Concern",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "readConcernLevel",
+                            "displayName": "Read Concern Level",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The level of isolation."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Read Preference",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "readPreference",
+                            "displayName": "Read Preference",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Specifies the read preferences for this connection."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "maxStalenessSeconds",
+                            "displayName": "Maximum Staleness Seconds",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Specifies, in seconds, how stale a secondary can be before the client stops using it for read operations."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "readPreferenceTags",
+                            "displayName": "Read Preference Tags",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Specifies the tags document as a comma-separated list of colon-separated key-value pairs."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Server",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "localThresholdMS",
+                            "displayName": "Local Threshold MS",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The size (in milliseconds) of the latency window for selecting among multiple suitable MongoDB instances."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "serverSelectionTimeoutMS",
+                            "displayName": "Server Selection Timeout MS",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Specifies how long (in milliseconds) to block for server selection before throwing an exception."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "serverSelectionTryOnce",
+                            "displayName": "Server Selection Try Once",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Single-threaded drivers only."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "heartbeatFrequencyMS",
+                            "displayName": "Heartbeat Frequency MSH",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Controls when the driver checks the state of the MongoDB deployment."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Miscellaneous",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "appName",
+                            "displayName": "App Name",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Specify a custom app name."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "retryReads",
+                            "displayName": "Retry Reads",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Enables retryable reads."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "retryWrites",
+                            "displayName": "Retry Writes",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "Enable retryable writes."
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "uuidRepresentation",
+                            "displayName": "UUID Representation",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "false",
+                            "helpTip": "The type of UUID representation."
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

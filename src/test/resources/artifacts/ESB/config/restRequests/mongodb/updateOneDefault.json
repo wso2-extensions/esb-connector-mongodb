@@ -1,0 +1,8 @@
+{
+    "collection": "TestCollection",
+    "update": {
+        "$set": {
+            "name": "John Smith"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "collection": "TestCollection",
+    "query": {
+        "_id": "123"
+    },
+    "update": {
+        "$set": {
+            "name": "Jane Smith"
+        }
+    }
+}

@@ -1,0 +1,115 @@
+{
+    "connectorName": "mongodb",
+    "operationName": "find",
+    "title": "FindDocuments",
+    "help": "<h1>FindDocuments</h1> <b>The find operation</b>",
+    "elements": [
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "General",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "configRef",
+                            "displayName": "Connection",
+                            "inputType": "connection",
+                            "allowedConnectionTypes": [
+                                "STANDARD",
+                                "DSL",
+                                "URI"
+                            ],
+                            "defaultType": "connection.standard",
+                            "defaultValue": "",
+                            "required": "true",
+                            "helpTip": "MongoDB connection to be used."
+                        }
+                    },
+                    {
+                        "type": "attributeGroup",
+                        "value": {
+                            "groupName": "Search",
+                            "elements": [
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "search",
+                                        "displayName": "Search",
+                                        "inputType": "searchBox",
+                                        "defaultValue": "",
+                                        "required": "false",
+                                        "helpTip": "Search for an attribute using the display name"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "attributeGroup",
+                        "value": {
+                            "groupName": "Basic",
+                            "elements": [
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "collection",
+                                        "displayName": "Collection",
+                                        "inputType": "stringOrExpression",
+                                        "defaultValue": "",
+                                        "required": "true",
+                                        "helpTip": "A grouping of MongoDB documents."
+                                    }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "query",
+                                        "displayName": "Query",
+                                        "inputType": "textAreaOrExpression",
+                                        "defaultValue": "",
+                                        "required": "true",
+                                        "helpTip": "Specifies selection filter using query operators."
+                                    }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "projection",
+                                        "displayName": "Projection",
+                                        "inputType": "textAreaOrExpression",
+                                        "defaultValue": "",
+                                        "required": "false",
+                                        "helpTip": "Specifies the fields to return in the documents that match the query filter."
+                                    }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "collation",
+                                        "displayName": "Collation",
+                                        "inputType": "textAreaOrExpression",
+                                        "defaultValue": "",
+                                        "required": "false",
+                                        "helpTip": "Specifies the collation to use for the operation."
+                                    }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "sort",
+                                        "displayName": "Sort",
+                                        "inputType": "textAreaOrExpression",
+                                        "defaultValue": "",
+                                        "required": "false",
+                                        "helpTip": "Specifies the order in which the query returns matching documents."
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

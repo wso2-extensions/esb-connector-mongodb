@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+   WSO2 Inc. licenses this file to you under the Apache License,
+   Version 2.0 (the "License"); you may not use this file except
+   in compliance with the License.
+   You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<component name="functions" type="synapse/template">
+    <subComponents>
+        <component name="deleteOne">
+            <file>deleteOne.xml</file>
+            <description>Removes a single document from a collection.</description>
+        </component>
+        <component name="deleteMany">
+            <file>deleteMany.xml</file>
+            <description>Removes all documents that match the filter from a collection.</description>
+        </component>
+        <component name="findOne">
+            <file>findOne.xml</file>
+            <description>Finds a single document in a collection.</description>
+        </component>
+        <component name="find">
+            <file>find.xml</file>
+            <description>Finds several documents in a collection.</description>
+        </component>
+        <component name="insertOne">
+            <file>insertOne.xml</file>
+            <description>Inserts a document into a collection.</description>
+        </component>
+        <component name="insertMany">
+            <file>insertMany.xml</file>
+            <description>Inserts several documents into a collection.</description>
+        </component>
+        <component name="updateOne">
+            <file>updateOne.xml</file>
+            <description>Modifies an existing document in a collection.</description>
+        </component>
+        <component name="updateMany">
+            <file>updateMany.xml</file>
+            <description>Modifies several documents in a collection.</description>
+        </component>
+    </subComponents>
+</component>
