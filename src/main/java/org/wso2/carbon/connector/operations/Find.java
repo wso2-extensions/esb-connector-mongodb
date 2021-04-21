@@ -43,6 +43,7 @@ public class Find extends AbstractConnector {
     private static final String PROJECTION = "projection";
     private static final String COLLATION = "collation";
     private static final String SORT = "sort";
+    private static final String LIMIT = "limit";
     private static final String FIND_RESULT = "Find Result : ";
     private static final String INVALID_MONGODB_CONFIG_MESSAGE = "MongoDB connection has not been instantiated.";
     private static final String ERROR_MESSAGE = "Error occurred while searching for the documents in the database.";
@@ -58,6 +59,7 @@ public class Find extends AbstractConnector {
         String projection = (String) getParameter(messageContext, PROJECTION);
         String collation = (String) getParameter(messageContext, COLLATION);
         String sort = (String) getParameter(messageContext, SORT);
+        String limitString = (String) getParameter(messageContext, LIMIT);
 
         try {
             String connectionName = MongoUtils.getConnectionName(messageContext);
@@ -74,7 +76,12 @@ public class Find extends AbstractConnector {
 
             Document queryDoc = Document.parse(query);
 
-            JSONArray findResult = simpleMongoClient.findDocuments(collection, queryDoc, projection, collation, sort);
+            int limit = 0;
+            if (StringUtils.isNotEmpty(limitString)) {
+                limit = Integer.parseInt(limitString);
+            }
+
+            JSONArray findResult = simpleMongoClient.findDocuments(collection, queryDoc, projection, collation, sort, limit);
 
             if (log.isDebugEnabled()) {
                 log.debug(FIND_RESULT + findResult);

@@ -20,6 +20,7 @@
     <parameter name="query" description="The selection criteria for the find query."/>
     <parameter name="projection" description="The fields to return in the documents that match the query filter."/>
     <parameter name="collation" description="Collation allows users to specify language-specific rules for string comparison."/>
+    <parameter name="limit" description="The number of maximum documents returned for the query. "/>
     <parameter name="sort" description="The order in which the query returns matching documents. "/>
     <sequence>
         <class name="org.wso2.carbon.connector.operations.Find"/>
