@@ -104,6 +104,17 @@
                                         "required": "false",
                                         "helpTip": "Specifies the order in which the query returns matching documents."
                                     }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "limit",
+                                        "displayName": "Limit",
+                                        "inputType": "textAreaOrExpression",
+                                        "defaultValue": "",
+                                        "required": "false",
+                                        "helpTip": "Specifies the maximum number of returned documents."
+                                    }
                                 }
                             ]
                         }

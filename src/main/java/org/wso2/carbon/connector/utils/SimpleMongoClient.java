@@ -152,11 +152,15 @@ public class SimpleMongoClient {
         }
     }
 
-    public JSONArray findDocuments(String collectionName, Document query, String projection, String collation, String sort) throws JSONException {
+    public JSONArray findDocuments(String collectionName, Document query, String projection, String collation, String sort, int limit) throws JSONException {
 
         MongoCollection<Document> collection = this.database.getCollection(collectionName);
-        FindIterable<Document> iterable = collection.find(query);
-
+        FindIterable<Document> iterable;
+        if (limit != 0) {
+            iterable = collection.find(query).limit(limit);
+        } else {
+            iterable = collection.find(query);
+        }
         if (StringUtils.isNotEmpty(projection)) {
             iterable.projection(Document.parse(projection));
         }
