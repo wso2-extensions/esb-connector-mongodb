@@ -7,6 +7,7 @@ The MongoDB Connector allows you to connect to the MongoDB database via differen
 | Connector version | Supported WSO2 ESB/EI version |
 | ------------- |------------- |
 |  1.0.0        | EI 6.6.0, EI 7.1.0 |
+|  1.0.1        | EI 6.6.0, EI 7.1.0 |
 
 ## Documentation
 
