@@ -52,8 +52,8 @@
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>3.12.7</version>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>4.9.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.synapse</groupId>
@@ -74,23 +74,6 @@
             <groupId>org.wso2.carbon.automation</groupId>
             <artifactId>org.wso2.carbon.automation.engine</artifactId>
             <version>${automation.framework.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.wso2.carbon.automation</groupId>
-            <artifactId>org.wso2.carbon.automation.extensions</artifactId>
-            <version>${automation.framework.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.jmeter</groupId>
-                    <artifactId>ApacheJMeter</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.jmeter</groupId>
-                    <artifactId>ApacheJMeter_core</artifactId>
-                </exclusion>
-            </exclusions>
             <scope>test</scope>
         </dependency>
 

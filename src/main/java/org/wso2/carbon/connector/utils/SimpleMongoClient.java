@@ -18,9 +18,9 @@
 
 package org.wso2.carbon.connector.utils;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
@@ -69,8 +69,7 @@ public class SimpleMongoClient {
     private final MongoDatabase database;
 
     public SimpleMongoClient(String connectionURI, String databaseName) {
-
-        this.mongoClient = new MongoClient(new MongoClientURI(connectionURI));
+        this.mongoClient = MongoClients.create(connectionURI);
         this.database = mongoClient.getDatabase(databaseName);
     }
 
@@ -110,7 +109,6 @@ public class SimpleMongoClient {
     }
 
     public void insertOneDocument(String collectionName, Document document) {
-
         MongoCollection<Document> collection = this.database.getCollection(collectionName);
         collection.insertOne(document);
     }
