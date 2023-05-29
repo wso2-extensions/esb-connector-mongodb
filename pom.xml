@@ -76,6 +76,7 @@
             <version>${automation.framework.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.wso2.carbon.automation</groupId>
             <artifactId>org.wso2.carbon.automation.extensions</artifactId>
@@ -92,6 +93,7 @@
             </exclusions>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.wso2.carbon.automationutils</groupId>
             <artifactId>org.wso2.carbon.integration.common.admin.client</artifactId>
