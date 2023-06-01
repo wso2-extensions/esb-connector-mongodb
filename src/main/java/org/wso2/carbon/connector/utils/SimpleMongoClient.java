@@ -36,10 +36,12 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.apache.commons.lang.StringUtils;
 import org.bson.Document;
+import com.mongodb.client.AggregateIterable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,6 +62,7 @@ public class SimpleMongoClient {
     private static final String NORMALIZATION = "normalization";
     private static final String FIND_ONE_RESULT = "{\"FindOneResult\": \"Not Found\"}";
     private static final String FIND_RESULT = "{\"FindResult\": \"Not Found\"}";
+    private static final String AGGREGATION_RESULT = "{\"AggregationResult\": \"Not Found\"}";
     private static final String MATCHED_COUNT = "matchedCount";
     private static final String MODIFIED_COUNT = "modifiedCount";
     private static final String UPSERTED_ID = "upsertedId";
@@ -266,6 +269,29 @@ public class SimpleMongoClient {
         JSONObject deleteResult = new JSONObject();
         deleteResult.put(DELETED_COUNT, result.getDeletedCount());
         return deleteResult;
+    }
+
+    public JSONArray aggregationPipeline(String collectionName, List<Document> pipelines) throws JSONException {
+
+        MongoCollection<Document> collection = this.database.getCollection(collectionName);
+
+        AggregateIterable<Document> iterableAggregate = collection.aggregate(pipelines);
+        MongoCursor<Document> resultCursor = iterableAggregate.iterator();
+
+        JSONArray resultArray = new JSONArray();
+        try {
+            while (resultCursor.hasNext()) {
+                Document result = resultCursor.next();
+                resultArray.put(new JSONObject(result.toJson()));
+            }
+        } finally {
+            resultCursor.close();
+        }
+
+        if (resultArray.isNull(0)) {
+            resultArray.put(new JSONObject(AGGREGATION_RESULT));
+        }
+        return resultArray;
     }
 
     public void closeConnection() {
