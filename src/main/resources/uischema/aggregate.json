@@ -1,8 +1,8 @@
 {
     "connectorName": "mongodb",
-    "operationName": "aggregation",
-    "title": "Aggregation",
-    "help": "<h1>Aggregation</h1> <b>The aggregation operation</b>",
+    "operationName": "aggregate",
+    "title": "Aggregate",
+    "help": "<h1>Aggregate</h1> <b>The aggregation operation</b>",
     "elements": [
         {
             "type": "attributeGroup",

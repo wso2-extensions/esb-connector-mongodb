@@ -40,16 +40,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class mediator for adding aggregation pipeline.
+ * Class mediator for adding aggregation operation.
  * For more information, see https://www.mongodb.com/docs/manual/reference/aggregation/
  */
-public class Aggregation extends AbstractConnector {
+public class Aggregate extends AbstractConnector {
 
     private static final String COLLECTION = "collection";
     private static final String STAGES = "stages";
     private static final String AGGREGATION_RESULT = "AggregationResult : ";
     private static final String INVALID_MONGODB_CONFIG_MESSAGE = "MongoDB connection has not been instantiated.";
-    private static final String EMPTY_STAGE_MESSAGE = "Stages of the aggregation stages cannot be empty.";
+    private static final String EMPTY_STAGE_MESSAGE = "Stages of the aggregation cannot be empty.";
     private static final String INVALID_DOCUMENTS_MESSAGE = "Not a valid aggregation stage.";
     private static final String ERROR_MESSAGE = "Error occurred while performing aggregation.";
 
