@@ -29,6 +29,7 @@
 
     <properties>
         <connector.name>mongodb</connector.name>
+        <mongodb.java.driver.version>3.12.12</mongodb.java.driver.version>
         <integration.base.version>1.0.3</integration.base.version>
         <product.ei.version>6.6.0</product.ei.version>
         <carbon.kernel.version>4.4.38</carbon.kernel.version>
@@ -53,7 +54,7 @@
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
-            <version>3.12.12</version>
+            <version>${mongodb.java.driver.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.synapse</groupId>
