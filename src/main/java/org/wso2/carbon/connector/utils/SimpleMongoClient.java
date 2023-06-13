@@ -271,6 +271,7 @@ public class SimpleMongoClient {
     }
 
     /**
+     * Aggregation pipeline operation to process data in a MongoDB collection and return computed results
      * @param collectionName Name of the collection
      * @param pipelines      List of aggregation pipelines or aggregation stages
      * @return JSONArray Aggregation result in JSON array format
