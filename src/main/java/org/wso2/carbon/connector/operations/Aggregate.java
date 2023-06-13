@@ -1,6 +1,5 @@
 /*
-
- *  Copyright (c) 2017, WSO2 LLC (http://www.wso2.org) All Rights Reserved.
+ *  Copyright (c) 2017-2023, WSO2 LLC (https://www.wso2.com).
  *
  *  WSO2 LLC licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -15,7 +14,6 @@
  *  KIND, either express or implied.  See the License for the
  *  specific language governing permissions and limitations
  *  under the License.
-
  */
 
 package org.wso2.carbon.connector.operations;
@@ -107,13 +105,10 @@ public class Aggregate extends AbstractConnector {
 
         } catch (BsonInvalidOperationException e) {
             MongoUtils.handleError(messageContext, e, MongoConstants.MONGODB_CONNECTIVITY, INVALID_DOCUMENTS_MESSAGE);
-
         } catch (IllegalArgumentException e) {
             MongoUtils.handleError(messageContext, e, MongoConstants.MONGODB_CONNECTIVITY, ERROR_MESSAGE);
-
         } catch (MongoException e) {
             MongoUtils.handleError(messageContext, e, e.getCode(), ERROR_MESSAGE);
-
         } catch (Exception e) {
             MongoUtils.handleError(messageContext, e, MongoConstants.MONGODB_UNKNOWN_EXCEPTION, ERROR_MESSAGE);
         }

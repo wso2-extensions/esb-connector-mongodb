@@ -270,6 +270,13 @@ public class SimpleMongoClient {
         return deleteResult;
     }
 
+    /**
+     * Aggregation pipeline operation to process data in a MongoDB collection and return computed results
+     * @param collectionName Name of the collection
+     * @param pipelines      List of aggregation pipelines or aggregation stages
+     * @return JSONArray Aggregation result in JSON array format
+     * @throws JSONException If the result cannot be converted to JSON
+     */
     public JSONArray aggregationPipeline(String collectionName, List<Document> pipelines) throws JSONException {
 
         MongoCollection<Document> collection = this.database.getCollection(collectionName);
