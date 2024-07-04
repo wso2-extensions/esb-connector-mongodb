@@ -1,12 +1,24 @@
 {
     "name": "MongoDB",
-    "owner": "Mongo",
+    "owner": "WSO2",
     "category": "Storage and Content Management",
     "documentationUrl": "https://ei.docs.wso2.com/en/latest/micro-integrator/references/connectors/mongodb-connector/mongodb-connector-overview/",
-    "description": "MongoDB is a cross-platform document-oriented program which is classified as a NoSQL database.This connector allows you to connect to the Mongo database via different connection URLs in order to perform CRUD operations on the database.",
+    "description": "MongoDB is a cross-platform document-oriented program which is classified as a NoSQL database.\nThis connector allows you to connect to the Mongo database via different connection URLs in order to perform CRUD operations on the database.",
     "status": "Active",
     "labels": [
-        "Database"
+        "database",
+        "nosql",
+        "mongodb"
     ],
-    "releases": []
+    "releases": [
+        {
+            "tagName": "v1.0.2",
+            "products": [
+                "EI 6.6.0",
+                "EI 7.1.0",
+                "MI 4.1.0"
+            ],
+            "isHidden": false
+        }
+    ]
 }
