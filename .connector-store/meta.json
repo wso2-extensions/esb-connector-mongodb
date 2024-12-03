@@ -8,7 +8,7 @@
     "mavenArtifactId": "org.wso2.carbon.connector.mongodb",
     "description": "MongoDB is a cross-platform document-oriented program which is classified as a NoSQL database.\nThis connector allows you to connect to the Mongo database via different connection URLs in order to perform CRUD operations on the database.",
     "status": "Active",
-    "connectorRank": 4,
+    "rank": 4,
     "type": "Connector",
     "labels": [
         "database",
