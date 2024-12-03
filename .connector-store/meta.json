@@ -1,10 +1,15 @@
 {
     "name": "MongoDB",
     "owner": "WSO2",
+    "product": "MI",
     "category": "Storage and Content Management",
     "documentationUrl": "https://mi.docs.wso2.com/en/latest/reference/connectors/mongodb-connector/mongodb-connector-overview/",
+    "mavenGroupId": "org.wso2.carbon.connector",
+    "mavenArtifactId": "org.wso2.carbon.connector.mongodb",
     "description": "MongoDB is a cross-platform document-oriented program which is classified as a NoSQL database.\nThis connector allows you to connect to the Mongo database via different connection URLs in order to perform CRUD operations on the database.",
     "status": "Active",
+    "connectorRank": 4,
+    "type": "Connector",
     "labels": [
         "database",
         "nosql"
@@ -18,6 +23,72 @@
                 "MI 4.1.0",
                 "MI 4.0.0"
             ],
+            "operations": [
+                {
+                    "name":"init",
+                    "description":"MongoDB connection configuration.",
+                    "isHidden":true
+                },
+                {
+                    "name":"deleteOne",
+                    "description":"Removes a single document from a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"deleteMany",
+                    "description":"Removes all documents that match the filter from a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"findOne",
+                    "description":"Finds a single document in a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"find",
+                    "description":"Finds several documents in a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"insertOne",
+                    "description":"Inserts a document into a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"insertMany",
+                    "description":"Inserts several documents into a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"updateOne",
+                    "description":"Modifies an existing document in a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"updateMany",
+                    "description":"Modifies several documents in a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"aggregate",
+                    "description":"Aggregation to process multiple documents and return result.",
+                    "isHidden":false
+                }
+            ],
+            "connections": [
+                {
+                    "name": "STANDARD",
+                    "description": "Standard MongoDB connection with explicit parameters."
+                },
+                {
+                    "name": "DSL",
+                    "description": "MongoDB connection using MongoDB configuration DSL."
+                },
+                {
+                    "name": "URI",
+                    "description": "MongoDB connection using a MongoDB connection URI."
+                }
+            ],
             "isHidden": false
         },
         {
@@ -27,6 +98,72 @@
                 "MI 4.2.0",
                 "MI 4.1.0",
                 "MI 4.0.0"
+            ],
+            "operations": [
+                {
+                    "name":"init",
+                    "description":"MongoDB connection configuration.",
+                    "isHidden":true
+                },
+                {
+                    "name":"deleteOne",
+                    "description":"Removes a single document from a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"deleteMany",
+                    "description":"Removes all documents that match the filter from a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"findOne",
+                    "description":"Finds a single document in a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"find",
+                    "description":"Finds several documents in a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"insertOne",
+                    "description":"Inserts a document into a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"insertMany",
+                    "description":"Inserts several documents into a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"updateOne",
+                    "description":"Modifies an existing document in a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"updateMany",
+                    "description":"Modifies several documents in a collection.",
+                    "isHidden":false
+                },
+                {
+                    "name":"aggregate",
+                    "description":"Aggregation to process multiple documents and return result.",
+                    "isHidden":false
+                }
+            ],
+            "connections": [
+                {
+                    "name": "STANDARD",
+                    "description": "Standard MongoDB connection with explicit parameters."
+                },
+                {
+                    "name": "DSL",
+                    "description": "MongoDB connection using MongoDB configuration DSL."
+                },
+                {
+                    "name": "URI",
+                    "description": "MongoDB connection using a MongoDB connection URI."
+                }
             ],
             "isHidden": false
         }
