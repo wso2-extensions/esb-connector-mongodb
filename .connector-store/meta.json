@@ -25,7 +25,7 @@
             ],
             "operations": [],
             "connections": [],
-            "isHidden": false
+            "isHidden": true
         },
         {
             "tagName": "v1.0.2",
