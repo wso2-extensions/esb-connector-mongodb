@@ -22,5 +22,6 @@
         <dependency component="functions"/>
         <description>WSO2 MongoDB connector library</description>
     </component>
+    <displayName>MongoDB</displayName>
     <icon>icon/icon-small.gif</icon>
 </connector>
