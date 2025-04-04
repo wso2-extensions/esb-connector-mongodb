@@ -19,6 +19,8 @@
     <parameter name="collection" description="The name of the collection available in the database."/>
     <parameter name="documents" description="An array of documents to insert into the collection."/>
     <parameter name="ordered" description="A boolean specifying whether the mongod instance should perform an ordered or unordered insert."/>
+    <parameter name="responseVariable" description="The name of the variable to which the response should be stored."/>
+    <parameter name="overwriteBody" description="Replace the Message Body in Message Context with the response of the operation."/>
     <sequence>
         <class name="org.wso2.carbon.connector.operations.InsertMany"/>
     </sequence>

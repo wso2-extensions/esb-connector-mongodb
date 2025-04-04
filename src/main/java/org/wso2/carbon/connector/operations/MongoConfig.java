@@ -23,9 +23,6 @@ import org.apache.synapse.MessageContext;
 import org.apache.synapse.config.SynapseConfiguration;
 import org.apache.synapse.core.SynapseEnvironment;
 import org.wso2.carbon.connector.connection.MongoConnection;
-import org.wso2.carbon.connector.core.AbstractConnector;
-import org.wso2.carbon.connector.core.ConnectException;
-import org.wso2.carbon.connector.core.connection.ConnectionHandler;
 import org.wso2.carbon.connector.deploy.ConnectorUndeployObserver;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.pojo.ConnectionConfiguration;
@@ -34,6 +31,9 @@ import org.wso2.carbon.connector.pojo.StandardConnectionConfig;
 import org.wso2.carbon.connector.pojo.URIConnectionConfig;
 import org.wso2.carbon.connector.utils.MongoConstants;
 import org.wso2.carbon.connector.utils.MongoUtils;
+import org.wso2.integration.connector.core.AbstractConnector;
+import org.wso2.integration.connector.core.ConnectException;
+import org.wso2.integration.connector.core.connection.ConnectionHandler;
 
 /**
  * Initializes the MongoDB connection based on provided configs

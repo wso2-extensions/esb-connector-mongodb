@@ -24,19 +24,19 @@ import org.apache.synapse.MessageContext;
 import org.bson.BsonInvalidOperationException;
 import org.bson.Document;
 import org.wso2.carbon.connector.connection.MongoConnection;
-import org.wso2.carbon.connector.core.AbstractConnector;
-import org.wso2.carbon.connector.core.ConnectException;
-import org.wso2.carbon.connector.core.connection.ConnectionHandler;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.utils.MongoConstants;
 import org.wso2.carbon.connector.utils.MongoUtils;
 import org.wso2.carbon.connector.utils.SimpleMongoClient;
+import org.wso2.integration.connector.core.AbstractConnectorOperation;
+import org.wso2.integration.connector.core.ConnectException;
+import org.wso2.integration.connector.core.connection.ConnectionHandler;
 
 /**
  * Class mediator for inserting one document.
  * For more information, see https://docs.mongodb.com/manual/reference/method/db.collection.insertOne
  */
-public class InsertOne extends AbstractConnector {
+public class InsertOne extends AbstractConnectorOperation {
 
     private static final String COLLECTION = "collection";
     private static final String DOCUMENT = "document";
@@ -47,7 +47,8 @@ public class InsertOne extends AbstractConnector {
     private static final String ERROR_MESSAGE = "Error occurred while inserting the document to the database";
 
     @Override
-    public void connect(MessageContext messageContext) throws ConnectException {
+    public void execute(MessageContext messageContext, String responseVariable, Boolean overwriteBody)
+            throws ConnectException {
 
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
         SimpleMongoClient simpleMongoClient;

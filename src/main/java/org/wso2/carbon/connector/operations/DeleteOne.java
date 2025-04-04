@@ -24,19 +24,19 @@ import org.apache.synapse.MessageContext;
 import org.bson.Document;
 import org.json.JSONObject;
 import org.wso2.carbon.connector.connection.MongoConnection;
-import org.wso2.carbon.connector.core.AbstractConnector;
-import org.wso2.carbon.connector.core.ConnectException;
-import org.wso2.carbon.connector.core.connection.ConnectionHandler;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.utils.MongoConstants;
 import org.wso2.carbon.connector.utils.MongoUtils;
 import org.wso2.carbon.connector.utils.SimpleMongoClient;
+import org.wso2.integration.connector.core.AbstractConnectorOperation;
+import org.wso2.integration.connector.core.ConnectException;
+import org.wso2.integration.connector.core.connection.ConnectionHandler;
 
 /**
  * Class mediator for deleting one document.
  * For more information, see https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne
  */
-public class DeleteOne extends AbstractConnector {
+public class DeleteOne extends AbstractConnectorOperation {
 
     private static final String COLLECTION = "collection";
     private static final String QUERY = "query";
@@ -46,7 +46,8 @@ public class DeleteOne extends AbstractConnector {
     private static final String ERROR_MESSAGE = "Error occurred while deleting the document from the database.";
 
     @Override
-    public void connect(MessageContext messageContext) throws ConnectException {
+    public void execute(MessageContext messageContext, String responseVariable, Boolean overwriteBody)
+            throws ConnectException {
 
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
         SimpleMongoClient simpleMongoClient;

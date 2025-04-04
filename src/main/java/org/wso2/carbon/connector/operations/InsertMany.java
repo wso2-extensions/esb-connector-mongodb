@@ -25,13 +25,13 @@ import org.bson.BsonArray;
 import org.bson.BsonInvalidOperationException;
 import org.bson.Document;
 import org.wso2.carbon.connector.connection.MongoConnection;
-import org.wso2.carbon.connector.core.AbstractConnector;
-import org.wso2.carbon.connector.core.ConnectException;
-import org.wso2.carbon.connector.core.connection.ConnectionHandler;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.utils.MongoConstants;
 import org.wso2.carbon.connector.utils.MongoUtils;
 import org.wso2.carbon.connector.utils.SimpleMongoClient;
+import org.wso2.integration.connector.core.AbstractConnectorOperation;
+import org.wso2.integration.connector.core.ConnectException;
+import org.wso2.integration.connector.core.connection.ConnectionHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ import java.util.List;
  * Class mediator for inserting many documents.
  * For more information, see https://docs.mongodb.com/manual/reference/method/db.collection.insertMany
  */
-public class InsertMany extends AbstractConnector {
+public class InsertMany extends AbstractConnectorOperation {
 
     private static final String COLLECTION = "collection";
     private static final String DOCUMENTS = "documents";
@@ -72,7 +72,8 @@ public class InsertMany extends AbstractConnector {
     }
 
     @Override
-    public void connect(MessageContext messageContext) throws ConnectException {
+    public void execute(MessageContext messageContext, String responseVariable, Boolean overwriteBody)
+            throws ConnectException {
 
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
         SimpleMongoClient simpleMongoClient;
