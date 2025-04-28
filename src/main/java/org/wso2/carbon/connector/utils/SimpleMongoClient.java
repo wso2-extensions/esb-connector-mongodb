@@ -116,7 +116,6 @@ public class SimpleMongoClient {
         MongoCollection<Document> collection = this.database.getCollection(collectionName);
         InsertOneResult result = collection.insertOne(document);
         JSONObject insertResult = new JSONObject();
-//        insertResult.put(INSERTED_ID, Objects.requireNonNull(result.getInsertedId()).asObjectId().getValue());
         insertResult.put(INSERTED_ID, result.getInsertedId());
         insertResult.put(INSERTED_COUNT, 1);
         return insertResult;
@@ -135,7 +134,7 @@ public class SimpleMongoClient {
         JSONArray insertedIds = new JSONArray();
 
         result.getInsertedIds().forEach((index, id) -> {
-            insertedIds.put(id.asObjectId().getValue());
+            insertedIds.put(id);
         });
 
         insertResult.put(INSERTED_IDS, insertedIds);

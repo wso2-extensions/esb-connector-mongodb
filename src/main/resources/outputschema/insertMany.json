@@ -6,7 +6,21 @@
   "properties": {
     "payload": {
       "type": "object",
-      "description": "The main response payload from the insertMany operation."
+      "description": "The main response payload from the insertMany operation.",
+      "properties": {
+        "insertedIds": {
+          "type": "array",
+          "description": "Array of IDs for the inserted documents, typically BsonObjectId values",
+          "items": {
+            "type": "string"
+          }
+        },
+        "insertedCount": {
+          "type": "integer",
+          "description": "The number of documents inserted"
+        }
+      },
+      "required": ["insertedIds", "insertedCount"]
     }
   },
   "required": [

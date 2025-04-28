@@ -56,7 +56,7 @@ public class DeleteMany extends AbstractConnectorOperation {
 
         String collection = getMediatorParameter(messageContext, COLLECTION, String.class, false);
         String query = getMediatorParameter(messageContext, QUERY, String.class, false);
-        String collation = getMediatorParameter(messageContext, COLLATION, String.class, false);
+        String collation = getMediatorParameter(messageContext, COLLATION, String.class, true);
 
         try {
             String connectionName = MongoUtils.getConnectionName(messageContext);

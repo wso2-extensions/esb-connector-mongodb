@@ -6,7 +6,22 @@
   "properties": {
     "payload": {
       "type": "object",
-      "description": "The main response payload from the updateOne operation."
+      "description": "The main response payload from the updateMany operation.",
+      "properties": {
+        "upsertedId": {
+          "type": "string",
+          "description": "The ID of the upserted document if an upsert occurred, typically a BsonObjectId value"
+        },
+        "modifiedCount": {
+          "type": "integer",
+          "description": "The number of documents that were modified by the update operation"
+        },
+        "matchedCount": {
+          "type": "integer",
+          "description": "The number of documents that matched the filter criteria"
+        }
+      },
+      "required": ["modifiedCount", "matchedCount"]
     }
   },
   "required": [
