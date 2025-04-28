@@ -35,7 +35,10 @@ public class MongoConstants {
      * Template parameters for the MongoDB connection.
      */
     public static final String CONNECTION_NAME = "name";
-    public static final String PROTOCOL = "connectionType";
+    public static final String INPUT_TYPE = "inputType";
+    public static final String CONNECTION_STRING_URI = "Connection String URI";
+    public static final String CONNECTION_PARAMETERS = "Connection Parameters";
+    public static final String USE_DNS_SRV = "useDnsSrvLookup";
     public static final String DATABASE = "database";
     public static final String HOST = "host";
     public static final String PORT = "port";

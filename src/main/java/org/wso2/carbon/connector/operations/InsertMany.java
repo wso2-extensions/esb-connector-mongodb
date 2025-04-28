@@ -21,9 +21,12 @@ package org.wso2.carbon.connector.operations;
 import com.mongodb.MongoException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.synapse.MessageContext;
+import org.apache.synapse.util.InlineExpressionUtil;
 import org.bson.BsonArray;
 import org.bson.BsonInvalidOperationException;
 import org.bson.Document;
+import org.jaxen.JaxenException;
+import org.json.JSONObject;
 import org.wso2.carbon.connector.connection.MongoConnection;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.utils.MongoConstants;
@@ -45,7 +48,6 @@ public class InsertMany extends AbstractConnectorOperation {
     private static final String COLLECTION = "collection";
     private static final String DOCUMENTS = "documents";
     private static final String ORDERED = "ordered";
-    private static final String INSERT_MANY_RESULT = "{\"InsertManyResult\":\"Successful\"}";
     private static final String INVALID_MONGODB_CONFIG_MESSAGE = "MongoDB connection has not been instantiated.";
     private static final String EMPTY_DOCUMENT_MESSAGE = "The documents to be inserted cannot be null or empty.";
     private static final String INVALID_DOCUMENTS_MESSAGE = "The document to be inserted cannot be an JSON object. Please provide a JSON array.";
@@ -78,9 +80,9 @@ public class InsertMany extends AbstractConnectorOperation {
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
         SimpleMongoClient simpleMongoClient;
 
-        String collection = (String) getParameter(messageContext, COLLECTION);
-        String stringDocuments = (String) getParameter(messageContext, DOCUMENTS);
-        String ordered = (String) getParameter(messageContext, ORDERED);
+        String collection = getMediatorParameter(messageContext, COLLECTION, String.class, false);
+        String stringDocuments = getMediatorParameter(messageContext, DOCUMENTS, String.class, false);
+        String ordered = getMediatorParameter(messageContext, ORDERED, String.class, true);
 
         if (StringUtils.isEmpty(stringDocuments)) {
             MongoConnectorException e = new MongoConnectorException(EMPTY_DOCUMENT_MESSAGE);
@@ -98,12 +100,12 @@ public class InsertMany extends AbstractConnectorOperation {
 
             List<Document> documents = stringToDocumentList(stringDocuments);
 
-            simpleMongoClient.insertManyDocuments(collection, documents, ordered);
+            JSONObject result = simpleMongoClient.insertManyDocuments(collection, documents, ordered);
             if (log.isDebugEnabled()) {
-                log.debug(INSERT_MANY_RESULT);
+                log.debug(result.toString());
             }
-            MongoUtils.setPayload(messageContext, INSERT_MANY_RESULT);
-
+            handleConnectorResponse(messageContext, responseVariable, overwriteBody, result.toString(),
+                    null, null);
         } catch (BsonInvalidOperationException e) {
             MongoUtils.handleError(messageContext, e, MongoConstants.MONGODB_CONNECTIVITY, INVALID_DOCUMENTS_MESSAGE);
 

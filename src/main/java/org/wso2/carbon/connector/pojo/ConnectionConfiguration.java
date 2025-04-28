@@ -21,6 +21,7 @@ package org.wso2.carbon.connector.pojo;
 import org.apache.commons.lang.StringUtils;
 import org.wso2.carbon.connector.connection.MongoProtocol;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
+import org.wso2.carbon.connector.utils.MongoConstants;
 
 /**
  * The ConnectionConfiguration contains all the common parameters
@@ -54,15 +55,23 @@ public class ConnectionConfiguration {
         return protocol;
     }
 
-    public void setProtocol(String protocol) throws MongoConnectorException {
+    public void setProtocol(String inputType, String useDnsSrv) throws MongoConnectorException {
+        if (StringUtils.isEmpty(inputType)) {
+            throw new MongoConnectorException("Mandatory parameter 'inputType' is not set.");
+        }
 
-        if (StringUtils.isNotEmpty(protocol)) {
-            this.protocol = MongoProtocol.valueOf(protocol);
-            if (!this.protocol.equals(MongoProtocol.URI)) {
-                isParameterized = true;
-            }
-        } else {
-            throw new MongoConnectorException("Mandatory parameter 'protocol' is not set.");
+        switch (inputType) {
+            case MongoConstants.CONNECTION_STRING_URI:
+                this.protocol = MongoProtocol.URI;
+                this.isParameterized = false;
+                break;
+            case MongoConstants.CONNECTION_PARAMETERS:
+                this.protocol = Boolean.parseBoolean(useDnsSrv) ?
+                        MongoProtocol.DSL : MongoProtocol.STANDARD;
+                this.isParameterized = true;
+                break;
+            default:
+                throw new MongoConnectorException("Invalid protocol type: " + inputType);
         }
     }
 

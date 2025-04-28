@@ -16,33 +16,12 @@
                             "displayName": "Connection",
                             "inputType": "connection",
                             "allowedConnectionTypes": [
-                                "STANDARD",
-                                "DSL",
-                                "URI"
+                                "MONGODB"
                             ],
                             "defaultType": "connection.standard",
                             "defaultValue": "",
                             "required": "true",
                             "helpTip": "MongoDB connection to be used."
-                        }
-                    },
-                    {
-                        "type": "attributeGroup",
-                        "value": {
-                            "groupName": "Search",
-                            "elements": [
-                                {
-                                    "type": "attribute",
-                                    "value": {
-                                        "name": "search",
-                                        "displayName": "Search",
-                                        "inputType": "searchBox",
-                                        "defaultValue": "",
-                                        "required": "false",
-                                        "helpTip": "Search for an attribute using the display name"
-                                    }
-                                }
-                            ]
                         }
                     },
                     {

@@ -21,7 +21,9 @@ package org.wso2.carbon.connector.operations;
 import com.mongodb.MongoException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.synapse.MessageContext;
+import org.apache.synapse.util.InlineExpressionUtil;
 import org.bson.Document;
+import org.jaxen.JaxenException;
 import org.json.JSONObject;
 import org.wso2.carbon.connector.connection.MongoConnection;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
@@ -52,9 +54,9 @@ public class DeleteMany extends AbstractConnectorOperation {
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
         SimpleMongoClient simpleMongoClient;
 
-        String collection = (String) getParameter(messageContext, COLLECTION);
-        String query = (String) getParameter(messageContext, QUERY);
-        String collation = (String) getParameter(messageContext, COLLATION);
+        String collection = getMediatorParameter(messageContext, COLLECTION, String.class, false);
+        String query = getMediatorParameter(messageContext, QUERY, String.class, false);
+        String collation = getMediatorParameter(messageContext, COLLATION, String.class, false);
 
         try {
             String connectionName = MongoUtils.getConnectionName(messageContext);
@@ -75,7 +77,8 @@ public class DeleteMany extends AbstractConnectorOperation {
             if (log.isDebugEnabled()) {
                 log.debug(DELETE_RESULT + deleteResult);
             }
-            MongoUtils.setPayload(messageContext, deleteResult.toString());
+            handleConnectorResponse(messageContext, responseVariable, overwriteBody, deleteResult.toString(),
+                    null, null);
 
         } catch (IllegalArgumentException e) {
             MongoUtils.handleError(messageContext, e, MongoConstants.MONGODB_CONNECTIVITY, ERROR_MESSAGE);

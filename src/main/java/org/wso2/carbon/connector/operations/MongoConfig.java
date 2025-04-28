@@ -85,12 +85,13 @@ public class MongoConfig extends AbstractConnector implements ManagedLifecycle {
     private ConnectionConfiguration getConnectionConfigFromContext(MessageContext messageContext) throws MongoConnectorException {
 
         String connectionName = (String) getParameter(messageContext, MongoConstants.CONNECTION_NAME);
-        String protocol = (String) getParameter(messageContext, MongoConstants.PROTOCOL);
         String database = (String) getParameter(messageContext, MongoConstants.DATABASE);
+        String inputType = (String) getParameter(messageContext, MongoConstants.INPUT_TYPE);
+        String useDnsSrvLookup = (String) getParameter(messageContext, MongoConstants.USE_DNS_SRV);
 
         ConnectionConfiguration connectionConfig = new ConnectionConfiguration();
         connectionConfig.setConnectionName(connectionName);
-        connectionConfig.setProtocol(protocol);
+        connectionConfig.setProtocol(inputType, useDnsSrvLookup);
         connectionConfig.setDatabase(database);
 
         if (connectionConfig.isParameterized()) {

@@ -1,8 +1,8 @@
 {
     "connectorName": "mongodb",
-    "connectionName": "STANDARD",
-    "title": "Standard Connection Parameters",
-    "help": "<h1>MongoDB Connector</h1> <b>The mongodb connector supports URI and parameters for establishing MongoDB connection.</b>",
+    "connectionName": "MONGODB",
+    "title": "MongoDB Connection",
+    "help": "The MongoDB connector supports both connection parameters and connection string URI for establishing MongoDB connections.",
     "elements": [
         {
             "type": "attribute",
@@ -10,16 +10,72 @@
                 "name": "connectionName",
                 "displayName": "Connection Name",
                 "inputType": "string",
-                "defaultValue": "MONGODB_CONNECTION_1",
+                "defaultValue": "MONGODB_CONNECTION",
                 "required": "true",
                 "helpTip": "The name for the MongoDB connection",
                 "validation": "nameWithoutSpecialCharacters"
             }
         },
         {
+            "type": "attribute",
+            "value": {
+                "name": "inputType",
+                "displayName": "Type",
+                "inputType": "comboOrExpression",
+                "comboValues": ["Connection String URI", "Connection Parameters"],
+                "defaultValue": "Connection String URI",
+                "required": "true",
+                "helpTip": "Method to construct the connection URI. The connection string URI is a single string that contains all the information needed to connect to the database. The connection parameters are individual fields that can be used to construct the connection URI."
+            }
+        },
+        {
+            "type": "attribute",
+            "value": {
+                "name": "useDnsSrvLookup",
+                "displayName": "Use DNS SRV Lookup",
+                "inputType": "checkbox",
+                "defaultValue": "false",
+                "required": "false",
+                "helpTip": "Enable DNS SRV lookup for automatic server discovery. If not selected, you have to provide a seed list of hosts (if there are multiple hosts). If selected, the you have to provide the cluster root domain name (e.g. mongodb.example.com) in the host field. The driver will then use DNS SRV records to discover the hosts in the cluster.",
+                "enableCondition": ["AND", {"inputType":"Connection Parameters"}]
+            }
+        },
+        {
             "type": "attributeGroup",
             "value": {
-                "groupName": "General",
+                "groupName": "URI Configuration",
+                "enableCondition": [{"inputType":"Connection String URI"}],
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "connectionURI",
+                            "displayName": "Connection String URI",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "true",
+                            "helpTip": "The complete connection URI containing the server details, credentials, and the connection options. [prefix]://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]"
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "database",
+                            "displayName": "Database",
+                            "inputType": "stringOrExpression",
+                            "defaultValue": "",
+                            "required": "true",
+                            "helpTip": "The name of the database."
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "Standard Configuration",
+                "enableCondition": ["AND", {"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attributeGroup",
@@ -32,9 +88,9 @@
                                         "name": "host",
                                         "displayName": "Host",
                                         "inputType": "stringOrExpression",
-                                        "defaultValue": "localhost",
+                                        "defaultValue": "",
                                         "required": "false",
-                                        "helpTip": "The host and port where the MongoDB instance is running."
+                                        "helpTip": "The host where the MongoDB instance is running."
                                     }
                                 },
                                 {
@@ -43,9 +99,10 @@
                                         "name": "port",
                                         "displayName": "Port",
                                         "inputType": "stringOrExpression",
-                                        "defaultValue": "27017",
+                                        "defaultValue": "",
                                         "required": "false",
-                                        "helpTip": "The host and port where the MongoDB instance is running."
+                                        "helpTip": "The port where the MongoDB instance is running.",
+                                        "enableCondition": [{"useDnsSrvLookup":"false"}]
                                     }
                                 }
                             ]
@@ -55,6 +112,7 @@
                         "type": "attributeGroup",
                         "value": {
                             "groupName": "Replica Set or Sharded Cluster",
+                            "enableCondition": [{"useDnsSrvLookup":"false"}],
                             "elements": [
                                 {
                                     "type": "attribute",
@@ -118,6 +176,7 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "Replica Set",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",
@@ -137,6 +196,8 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "Authentication",
+                "isCollapsed": "true",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",
@@ -146,7 +207,7 @@
                             "inputType": "stringOrExpression",
                             "defaultValue": "",
                             "required": "false",
-                            "helpTip": "Specifies the database name associated with the user’s credentials."
+                            "helpTip": "Specifies the database name associated with the user's credentials."
                         }
                     },
                     {
@@ -189,6 +250,8 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "Write Concern",
+                "isCollapsed": "true",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",
@@ -230,6 +293,8 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "Connection Pool",
+                "isCollapsed": "true",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",
@@ -293,6 +358,8 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "SSL",
+                "isCollapsed": "true",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",
@@ -323,6 +390,8 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "Timeout",
+                "isCollapsed": "true",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",
@@ -353,6 +422,8 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "Compression",
+                "isCollapsed": "true",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",
@@ -383,6 +454,8 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "Read Concern",
+                "isCollapsed": "true",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",
@@ -402,6 +475,8 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "Read Preference",
+                "isCollapsed": "true",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",
@@ -443,6 +518,8 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "Server",
+                "isCollapsed": "true",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",
@@ -481,7 +558,7 @@
                         "type": "attribute",
                         "value": {
                             "name": "heartbeatFrequencyMS",
-                            "displayName": "Heartbeat Frequency MSH",
+                            "displayName": "Heartbeat Frequency MS",
                             "inputType": "stringOrExpression",
                             "defaultValue": "",
                             "required": "false",
@@ -495,6 +572,8 @@
             "type": "attributeGroup",
             "value": {
                 "groupName": "Miscellaneous",
+                "isCollapsed": "true",
+                "enableCondition": [{"inputType":"Connection Parameters"}],
                 "elements": [
                     {
                         "type": "attribute",

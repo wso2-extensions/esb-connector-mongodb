@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Output Schema for insertOne Operation",
+  "description": "Output schema for the insertOne operation in the connector.",
+  "properties": {
+    "payload": {
+      "type": "object",
+      "description": "The main response payload from the insertOne operation.",
+      "properties": {
+        "insertedId": {
+          "type": "string",
+          "description": "The ID of the inserted document, typically a BsonObjectId value"
+        },
+        "insertedCount": {
+          "type": "integer",
+          "description": "The number of documents inserted (always 1 for insertOne operation)"
+        }
+      },
+      "required": ["insertedId", "insertedCount"]
+    }
+  },
+  "required": [
+    "payload"
+  ],
+  "additionalProperties": false
+}

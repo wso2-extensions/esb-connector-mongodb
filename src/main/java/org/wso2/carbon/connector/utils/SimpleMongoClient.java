@@ -33,6 +33,8 @@ import com.mongodb.client.model.DeleteOptions;
 import com.mongodb.client.model.InsertManyOptions;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertManyResult;
+import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import org.apache.commons.lang.StringUtils;
 import org.bson.Document;
@@ -42,6 +44,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The SimpleMongoClient class acts as a wrapper class
@@ -58,12 +61,13 @@ public class SimpleMongoClient {
     private static final String MAX_VARIABLE = "maxVariable";
     private static final String BACKWARDS = "backwards";
     private static final String NORMALIZATION = "normalization";
-    private static final String FIND_ONE_RESULT = "{\"FindOneResult\": \"Not Found\"}";
-    private static final String FIND_RESULT = "{\"FindResult\": \"Not Found\"}";
     private static final String MATCHED_COUNT = "matchedCount";
     private static final String MODIFIED_COUNT = "modifiedCount";
     private static final String UPSERTED_ID = "upsertedId";
     private static final String DELETED_COUNT = "deletedCount";
+    private static final String INSERTED_COUNT = "insertedCount";
+    private static final String INSERTED_ID = "insertedId";
+    private static final String INSERTED_IDS = "insertedIds";
 
     private final MongoClient mongoClient;
     private final MongoDatabase database;
@@ -108,12 +112,17 @@ public class SimpleMongoClient {
         return builder.build();
     }
 
-    public void insertOneDocument(String collectionName, Document document) {
+    public JSONObject insertOneDocument(String collectionName, Document document) {
         MongoCollection<Document> collection = this.database.getCollection(collectionName);
-        collection.insertOne(document);
+        InsertOneResult result = collection.insertOne(document);
+        JSONObject insertResult = new JSONObject();
+//        insertResult.put(INSERTED_ID, Objects.requireNonNull(result.getInsertedId()).asObjectId().getValue());
+        insertResult.put(INSERTED_ID, result.getInsertedId());
+        insertResult.put(INSERTED_COUNT, 1);
+        return insertResult;
     }
 
-    public void insertManyDocuments(String collectionName, List<Document> documents, String ordered) {
+    public JSONObject insertManyDocuments(String collectionName, List<Document> documents, String ordered) {
 
         MongoCollection<Document> collection = this.database.getCollection(collectionName);
         InsertManyOptions options = new InsertManyOptions();
@@ -121,36 +130,51 @@ public class SimpleMongoClient {
         if (StringUtils.isNotEmpty(ordered)) {
             options.ordered(Boolean.parseBoolean(ordered));
         }
-        collection.insertMany(documents, options);
+        InsertManyResult result = collection.insertMany(documents, options);
+        JSONObject insertResult = new JSONObject();
+        JSONArray insertedIds = new JSONArray();
+
+        result.getInsertedIds().forEach((index, id) -> {
+            insertedIds.put(id.asObjectId().getValue());
+        });
+
+        insertResult.put(INSERTED_IDS, insertedIds);
+        insertResult.put(INSERTED_COUNT, result.getInsertedIds().size());
+        return insertResult;
     }
 
     public JSONObject findOneDocument(String collectionName, Document query, String projection, String collation) throws JSONException {
-
         MongoCollection<Document> collection = this.database.getCollection(collectionName);
         FindIterable<Document> iterable = collection.find(query);
 
         if (StringUtils.isNotEmpty(projection)) {
             iterable.projection(Document.parse(projection));
-        } else if (StringUtils.isNotEmpty(collation)) {
+        }
+        if (StringUtils.isNotEmpty(collation)) {
             iterable.collation(stringToCollation(collation));
         }
+
+        JSONObject response = new JSONObject();
+        Document result = null;
         MongoCursor<Document> resultCursor = iterable.iterator();
 
-        Document result;
         try {
-            result = iterable.first();
+            if (resultCursor.hasNext()) {
+                result = resultCursor.next();
+                response.put("data", new JSONObject(result.toJson()));
+                response.put("found", true);
+            } else {
+                response.put("data", new JSONObject());
+                response.put("found", false);
+            }
         } finally {
             resultCursor.close();
         }
 
-        if (result == null) {
-            return new JSONObject(FIND_ONE_RESULT);
-        } else {
-            return new JSONObject(result.toJson());
-        }
+        return response;
     }
 
-    public JSONArray findDocuments(String collectionName, Document query, String projection, String collation, String sort, int limit) throws JSONException {
+    public JSONObject findDocuments(String collectionName, Document query, String projection, String collation, String sort, int limit) throws JSONException {
 
         MongoCollection<Document> collection = this.database.getCollection(collectionName);
         FindIterable<Document> iterable;
@@ -170,6 +194,7 @@ public class SimpleMongoClient {
         }
         MongoCursor<Document> resultCursor = iterable.iterator();
 
+        JSONObject response = new JSONObject();
         JSONArray resultArray = new JSONArray();
         try {
             while (resultCursor.hasNext()) {
@@ -180,10 +205,11 @@ public class SimpleMongoClient {
             resultCursor.close();
         }
 
-        if (resultArray.isNull(0)) {
-            resultArray.put(new JSONObject(FIND_RESULT));
-        }
-        return resultArray;
+        response.put("data", resultArray);
+        response.put("count", resultArray.length());
+        response.put("found", resultArray.length() > 0);
+
+        return response;
     }
 
     public JSONObject updateOneDocument(String collectionName, Document filter, Document update, String upsert, String collation, String arrayFilters)
