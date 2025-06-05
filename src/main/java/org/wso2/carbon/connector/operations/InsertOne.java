@@ -40,7 +40,6 @@ public class InsertOne extends AbstractConnector {
 
     private static final String COLLECTION = "collection";
     private static final String DOCUMENT = "document";
-    private static final String INSERT_ONE_RESULT = "{\"InsertOneResult\":\"Successful\"}";
     private static final String INVALID_MONGODB_CONFIG_MESSAGE = "MongoDB connection has not been instantiated.";
     private static final String EMPTY_DOCUMENT_MESSAGE = "The document to be inserted cannot be null or empty.";
     private static final String INVALID_DOCUMENT_MESSAGE = "The document to be inserted cannot be a JSON array. Please provide a JSON object.";
@@ -73,10 +72,14 @@ public class InsertOne extends AbstractConnector {
 
             simpleMongoClient.insertOneDocument(collection, document);
 
-            if (log.isDebugEnabled()) {
-                log.debug(INSERT_ONE_RESULT);
+            Document result = new Document("InsertOneResult", "Successful");
+            result.append("acknowledged", "true");
+            Object insertedId = document.get("_id");
+            if (insertedId != null) {
+                result.append("insertedId", insertedId);
             }
-            MongoUtils.setPayload(messageContext, INSERT_ONE_RESULT);
+
+            MongoUtils.setPayload(messageContext, document.toJson());
 
         } catch (BsonInvalidOperationException e) {
             MongoUtils.handleError(messageContext, e, MongoConstants.MONGODB_CONNECTIVITY, INVALID_DOCUMENT_MESSAGE);
