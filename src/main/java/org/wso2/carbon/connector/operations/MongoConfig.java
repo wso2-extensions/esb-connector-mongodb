@@ -71,7 +71,8 @@ public class MongoConfig extends AbstractConnector implements ManagedLifecycle {
             ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
             if (!handler.checkIfConnectionExists(MongoConstants.CONNECTOR_NAME, connectionName)) {
                 MongoConnection mongoConnection = new MongoConnection(messageContext, configuration);
-                handler.createConnection(MongoConstants.CONNECTOR_NAME, connectionName, mongoConnection);
+                handler.createConnection(MongoConstants.CONNECTOR_NAME, connectionName,
+                        mongoConnection, messageContext);
             }
 
         } catch (MongoConnectorException e) {
