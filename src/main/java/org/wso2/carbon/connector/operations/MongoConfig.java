@@ -23,9 +23,6 @@ import org.apache.synapse.MessageContext;
 import org.apache.synapse.config.SynapseConfiguration;
 import org.apache.synapse.core.SynapseEnvironment;
 import org.wso2.carbon.connector.connection.MongoConnection;
-import org.wso2.carbon.connector.core.AbstractConnector;
-import org.wso2.carbon.connector.core.ConnectException;
-import org.wso2.carbon.connector.core.connection.ConnectionHandler;
 import org.wso2.carbon.connector.deploy.ConnectorUndeployObserver;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.pojo.ConnectionConfiguration;
@@ -34,6 +31,9 @@ import org.wso2.carbon.connector.pojo.StandardConnectionConfig;
 import org.wso2.carbon.connector.pojo.URIConnectionConfig;
 import org.wso2.carbon.connector.utils.MongoConstants;
 import org.wso2.carbon.connector.utils.MongoUtils;
+import org.wso2.integration.connector.core.AbstractConnector;
+import org.wso2.integration.connector.core.ConnectException;
+import org.wso2.integration.connector.core.connection.ConnectionHandler;
 
 /**
  * Initializes the MongoDB connection based on provided configs
@@ -85,12 +85,13 @@ public class MongoConfig extends AbstractConnector implements ManagedLifecycle {
     private ConnectionConfiguration getConnectionConfigFromContext(MessageContext messageContext) throws MongoConnectorException {
 
         String connectionName = (String) getParameter(messageContext, MongoConstants.CONNECTION_NAME);
-        String protocol = (String) getParameter(messageContext, MongoConstants.PROTOCOL);
         String database = (String) getParameter(messageContext, MongoConstants.DATABASE);
+        String inputType = (String) getParameter(messageContext, MongoConstants.INPUT_TYPE);
+        String useDnsSrvLookup = (String) getParameter(messageContext, MongoConstants.USE_DNS_SRV);
 
         ConnectionConfiguration connectionConfig = new ConnectionConfiguration();
         connectionConfig.setConnectionName(connectionName);
-        connectionConfig.setProtocol(protocol);
+        connectionConfig.setProtocol(inputType, useDnsSrvLookup);
         connectionConfig.setDatabase(database);
 
         if (connectionConfig.isParameterized()) {

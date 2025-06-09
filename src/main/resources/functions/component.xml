@@ -19,34 +19,42 @@
 <component name="functions" type="synapse/template">
     <subComponents>
         <component name="deleteOne">
+            <displayName>Delete One</displayName>
             <file>deleteOne.xml</file>
             <description>Removes a single document from a collection.</description>
         </component>
         <component name="deleteMany">
+            <displayName>Delete Many</displayName>
             <file>deleteMany.xml</file>
             <description>Removes all documents that match the filter from a collection.</description>
         </component>
         <component name="findOne">
+            <displayName>Find One</displayName>
             <file>findOne.xml</file>
             <description>Finds a single document in a collection.</description>
         </component>
         <component name="find">
+            <displayName>Find</displayName>
             <file>find.xml</file>
             <description>Finds several documents in a collection.</description>
         </component>
         <component name="insertOne">
+            <displayName>Insert One</displayName>
             <file>insertOne.xml</file>
             <description>Inserts a document into a collection.</description>
         </component>
         <component name="insertMany">
+            <displayName>Insert Many</displayName>
             <file>insertMany.xml</file>
             <description>Inserts several documents into a collection.</description>
         </component>
         <component name="updateOne">
+            <displayName>Update One</displayName>
             <file>updateOne.xml</file>
             <description>Modifies an existing document in a collection.</description>
         </component>
         <component name="updateMany">
+            <displayName>Update Many</displayName>
             <file>updateMany.xml</file>
             <description>Modifies several documents in a collection.</description>
         </component>

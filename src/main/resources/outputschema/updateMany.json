@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Output Schema for updateMany Operation",
+  "description": "Output schema for the updateMany operation in the connector.",
+  "properties": {
+    "payload": {
+      "type": "object",
+      "description": "The main response payload from the updateMany operation.",
+      "properties": {
+        "upsertedId": {
+          "type": "string",
+          "description": "The ID of the upserted document if an upsert occurred as a string value"
+        },
+        "modifiedCount": {
+          "type": "integer",
+          "description": "The number of documents that were modified by the update operation"
+        },
+        "matchedCount": {
+          "type": "integer",
+          "description": "The number of documents that matched the filter criteria"
+        }
+      },
+      "required": ["modifiedCount", "matchedCount"]
+    }
+  },
+  "required": [
+    "payload"
+  ],
+  "additionalProperties": false
+}

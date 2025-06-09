@@ -20,6 +20,8 @@
     <parameter name="query" description="The selection criteria for the find query."/>
     <parameter name="projection" description="The fields to return in the documents that match the query filter."/>
     <parameter name="collation" description="Collation allows users to specify language-specific rules for string comparison."/>
+    <parameter name="responseVariable" description="The name of the variable to which the response should be stored."/>
+    <parameter name="overwriteBody" description="Replace the Message Body in Message Context with the response of the operation."/>
     <sequence>
         <class name="org.wso2.carbon.connector.operations.FindOne"/>
     </sequence>

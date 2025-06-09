@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Output Schema for insertMany Operation",
+  "description": "Output schema for the insertMany operation in the connector.",
+  "properties": {
+    "payload": {
+      "type": "object",
+      "description": "The main response payload from the insertMany operation.",
+      "properties": {
+        "insertedIds": {
+          "type": "array",
+          "description": "Array of IDs for the inserted documents as string values",
+          "items": {
+            "type": "string"
+          }
+        },
+        "insertedCount": {
+          "type": "integer",
+          "description": "The number of documents inserted"
+        }
+      },
+      "required": ["insertedIds", "insertedCount"]
+    }
+  },
+  "required": [
+    "payload"
+  ],
+  "additionalProperties": false
+}
