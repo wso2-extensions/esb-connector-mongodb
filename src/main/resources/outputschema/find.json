@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Output Schema for find Operation",
+  "description": "Output schema for the find operation in the connector.",
+  "properties": {
+    "payload": {
+      "type": "object",
+      "description": "The main response payload from the find operation.",
+      "properties": {
+        "found": {
+          "type": "boolean",
+          "description": "Indicates whether any records were found."
+        },
+        "count": {
+          "type": "integer",
+          "description": "The total number of records found."
+        },
+        "data": {
+          "type": "array",
+          "description": "An array of objects representing the data returned from the find operation."
+        }
+      }
+    }
+  },
+  "required": [
+    "payload"
+  ],
+  "additionalProperties": false
+}

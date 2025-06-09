@@ -22,6 +22,8 @@
     <parameter name="collation" description="Collation allows users to specify language-specific rules for string comparison."/>
     <parameter name="limit" description="The number of maximum documents returned for the query. "/>
     <parameter name="sort" description="The order in which the query returns matching documents. "/>
+    <parameter name="responseVariable" description="The name of the variable to which the response should be stored."/>
+    <parameter name="overwriteBody" description="Replace the Message Body in Message Context with the response of the operation."/>
     <sequence>
         <class name="org.wso2.carbon.connector.operations.Find"/>
     </sequence>

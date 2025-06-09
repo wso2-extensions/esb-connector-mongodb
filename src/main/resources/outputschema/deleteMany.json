@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Output Schema for deleteMany Operation",
+  "description": "Output schema for the deleteMany operation in the connector.",
+  "properties": {
+    "payload": {
+      "type": "object",
+      "description": "The main response payload from the deleteMany operation.",
+      "properties": {
+        "deletedCount": {
+          "type": "integer",
+          "description": "The number of documents deleted by the operation."
+        }
+      },
+      "required": [
+        "deletedCount"
+      ]
+    }
+  },
+  "required": [
+    "payload"
+  ],
+  "additionalProperties": false
+}

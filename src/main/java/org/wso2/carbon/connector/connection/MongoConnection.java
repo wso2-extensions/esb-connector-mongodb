@@ -22,13 +22,13 @@ import com.mongodb.MongoException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.synapse.MessageContext;
-import org.wso2.carbon.connector.core.connection.Connection;
-import org.wso2.carbon.connector.core.connection.ConnectionConfig;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.pojo.ConnectionConfiguration;
 import org.wso2.carbon.connector.utils.MongoConstants;
 import org.wso2.carbon.connector.utils.MongoUtils;
 import org.wso2.carbon.connector.utils.SimpleMongoClient;
+import org.wso2.integration.connector.core.connection.Connection;
+import org.wso2.integration.connector.core.connection.ConnectionConfig;
 
 /**
  * The MongoConnection object that handles all MongoDB operations

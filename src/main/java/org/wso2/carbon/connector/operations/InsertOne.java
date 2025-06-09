@@ -23,37 +23,38 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.synapse.MessageContext;
 import org.bson.BsonInvalidOperationException;
 import org.bson.Document;
+import org.json.JSONObject;
 import org.wso2.carbon.connector.connection.MongoConnection;
-import org.wso2.carbon.connector.core.AbstractConnector;
-import org.wso2.carbon.connector.core.ConnectException;
-import org.wso2.carbon.connector.core.connection.ConnectionHandler;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.utils.MongoConstants;
 import org.wso2.carbon.connector.utils.MongoUtils;
 import org.wso2.carbon.connector.utils.SimpleMongoClient;
+import org.wso2.integration.connector.core.AbstractConnectorOperation;
+import org.wso2.integration.connector.core.ConnectException;
+import org.wso2.integration.connector.core.connection.ConnectionHandler;
 
 /**
  * Class mediator for inserting one document.
  * For more information, see https://docs.mongodb.com/manual/reference/method/db.collection.insertOne
  */
-public class InsertOne extends AbstractConnector {
+public class InsertOne extends AbstractConnectorOperation {
 
     private static final String COLLECTION = "collection";
     private static final String DOCUMENT = "document";
-    private static final String INSERT_ONE_RESULT = "{\"InsertOneResult\":\"Successful\"}";
     private static final String INVALID_MONGODB_CONFIG_MESSAGE = "MongoDB connection has not been instantiated.";
     private static final String EMPTY_DOCUMENT_MESSAGE = "The document to be inserted cannot be null or empty.";
     private static final String INVALID_DOCUMENT_MESSAGE = "The document to be inserted cannot be a JSON array. Please provide a JSON object.";
     private static final String ERROR_MESSAGE = "Error occurred while inserting the document to the database";
 
     @Override
-    public void connect(MessageContext messageContext) throws ConnectException {
+    public void execute(MessageContext messageContext, String responseVariable, Boolean overwriteBody)
+            throws ConnectException {
 
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
         SimpleMongoClient simpleMongoClient;
 
-        String collection = (String) getParameter(messageContext, COLLECTION);
-        String stringDocument = (String) getParameter(messageContext, DOCUMENT);
+        String collection = getMediatorParameter(messageContext, COLLECTION, String.class, false);
+        String stringDocument = getMediatorParameter(messageContext, DOCUMENT, String.class, false);
 
         if (StringUtils.isEmpty(stringDocument)) {
             MongoConnectorException e = new MongoConnectorException(EMPTY_DOCUMENT_MESSAGE);
@@ -71,12 +72,10 @@ public class InsertOne extends AbstractConnector {
 
             Document document = Document.parse(stringDocument);
 
-            simpleMongoClient.insertOneDocument(collection, document);
+            JSONObject insertResult = simpleMongoClient.insertOneDocument(collection, document);
 
-            if (log.isDebugEnabled()) {
-                log.debug(INSERT_ONE_RESULT);
-            }
-            MongoUtils.setPayload(messageContext, INSERT_ONE_RESULT);
+            handleConnectorResponse(messageContext, responseVariable, overwriteBody, insertResult.toString(),
+                    null, null);
 
         } catch (BsonInvalidOperationException e) {
             MongoUtils.handleError(messageContext, e, MongoConstants.MONGODB_CONNECTIVITY, INVALID_DOCUMENT_MESSAGE);

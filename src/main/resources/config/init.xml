@@ -19,7 +19,7 @@
 <template name="init" onError="fault" xmlns="http://ws.apache.org/ns/synapse">
     <!--common params-->
     <parameter name="name" description="Unique name the connection is identified by"/>
-    <parameter name="connectionType" description="Connection string type (protocol) that should be used to establish the connection with the MongoDB."/>
+    <parameter name="connectionType" description="MongoDB connection type"/>
     <parameter name="database" description="The name of the database available in the MongoDB server."/>
     <!--URI connection params-->
     <parameter name="connectionURI" description="The URI which can be used to create a MongoDB instance."/>
@@ -78,6 +78,8 @@
     <parameter name="retryReads" description="Enables retryable reads."/>
     <parameter name="retryWrites" description="Enable retryable writes."/>
     <parameter name="uuidRepresentation" description="The representation to use when converting a UUID to a BSON binary value."/>
+    <parameter name="inputType" description="Connection string type that should be used to establish the connection with the MongoDB."/>
+    <parameter name="useDnsSrvLookup" description="When true, the driver uses DNS SRV records to discover the MongoDB server."/>
     <sequence>
         <property name="name" expression="$func:name"/>
         <class name="org.wso2.carbon.connector.operations.MongoConfig"/>

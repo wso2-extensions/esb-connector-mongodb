@@ -21,22 +21,24 @@ package org.wso2.carbon.connector.operations;
 import com.mongodb.MongoException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.synapse.MessageContext;
+import org.apache.synapse.util.InlineExpressionUtil;
 import org.bson.Document;
+import org.jaxen.JaxenException;
 import org.json.JSONObject;
 import org.wso2.carbon.connector.connection.MongoConnection;
-import org.wso2.carbon.connector.core.AbstractConnector;
-import org.wso2.carbon.connector.core.ConnectException;
-import org.wso2.carbon.connector.core.connection.ConnectionHandler;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.utils.MongoConstants;
 import org.wso2.carbon.connector.utils.MongoUtils;
 import org.wso2.carbon.connector.utils.SimpleMongoClient;
+import org.wso2.integration.connector.core.AbstractConnectorOperation;
+import org.wso2.integration.connector.core.ConnectException;
+import org.wso2.integration.connector.core.connection.ConnectionHandler;
 
 /**
  * Class mediator for updating one document.
  * For more information, see https://docs.mongodb.com/manual/reference/method/db.collection.updateOne
  */
-public class UpdateOne extends AbstractConnector {
+public class UpdateOne extends AbstractConnectorOperation {
 
     private static final String COLLECTION = "collection";
     private static final String QUERY = "query";
@@ -50,17 +52,18 @@ public class UpdateOne extends AbstractConnector {
     private static final String ERROR_MESSAGE = "Error occurred while updating the document in the database.";
 
     @Override
-    public void connect(MessageContext messageContext) throws ConnectException {
+    public void execute(MessageContext messageContext, String responseVariable, Boolean overwriteBody)
+            throws ConnectException {
 
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
         SimpleMongoClient simpleMongoClient;
 
-        String collection = (String) getParameter(messageContext, COLLECTION);
-        String query = (String) getParameter(messageContext, QUERY);
-        String update = (String) getParameter(messageContext, UPDATE);
-        String upsert = (String) getParameter(messageContext, UPSERT);
-        String collation = (String) getParameter(messageContext, COLLATION);
-        String arrayFilters = (String) getParameter(messageContext, ARRAY_FILTERS);
+        String collection = getMediatorParameter(messageContext, COLLECTION, String.class, false);
+        String query = getMediatorParameter(messageContext, QUERY, String.class, false);
+        String update = getMediatorParameter(messageContext, UPDATE, String.class, false);
+        String upsert = getMediatorParameter(messageContext, UPSERT, String.class, false);
+        String collation = getMediatorParameter(messageContext, COLLATION, String.class, true);
+        String arrayFilters = getMediatorParameter(messageContext, ARRAY_FILTERS, String.class, true);
 
         if (StringUtils.isEmpty(update)) {
             MongoConnectorException e = new MongoConnectorException(EMPTY_UPDATE_MESSAGE);
@@ -87,7 +90,8 @@ public class UpdateOne extends AbstractConnector {
             if (log.isDebugEnabled()) {
                 log.debug(UPDATE_RESULT + updateResult);
             }
-            MongoUtils.setPayload(messageContext, updateResult.toString());
+            handleConnectorResponse(messageContext, responseVariable, overwriteBody, updateResult.toString(),
+                    null, null);
 
         } catch (IllegalArgumentException e) {
             MongoUtils.handleError(messageContext, e, MongoConstants.MONGODB_CONNECTIVITY, ERROR_MESSAGE);

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Output Schema for findOne Operation",
+  "description": "Output schema for the findOne operation in the connector.",
+  "properties": {
+    "payload": {
+      "type": "object",
+      "description": "The main response payload from the findOne operation.",
+      "properties": {
+        "data": {
+          "type": "object",
+          "description": "The data object containing the result of the findOne operation.",
+          "additionalProperties": false
+        },
+        "found": {
+          "type": "boolean",
+          "description": "Indicates whether the requested resource was found.",
+          "example": true
+        }
+      },
+      "required": [
+          "data",
+          "found"
+      ]
+    }
+  },
+  "required": [
+    "payload"
+  ],
+  "additionalProperties": false
+}

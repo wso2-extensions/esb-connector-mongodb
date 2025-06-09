@@ -21,12 +21,13 @@ package org.wso2.carbon.connector.operations;
 import com.mongodb.MongoException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.synapse.MessageContext;
+import org.apache.synapse.util.InlineExpressionUtil;
 import org.bson.Document;
-import org.json.JSONArray;
-import org.wso2.carbon.connector.connection.MongoConnection;
-import org.wso2.carbon.connector.core.AbstractConnector;
-import org.wso2.carbon.connector.core.ConnectException;
-import org.wso2.carbon.connector.core.connection.ConnectionHandler;
+import org.jaxen.JaxenException;
+import org.json.JSONObject;
+import org.wso2.carbon.connector.connection.MongoConnection;import org.wso2.integration.connector.core.AbstractConnectorOperation;
+import org.wso2.integration.connector.core.ConnectException;
+import org.wso2.integration.connector.core.connection.ConnectionHandler;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.utils.MongoConstants;
 import org.wso2.carbon.connector.utils.MongoUtils;
@@ -36,7 +37,7 @@ import org.wso2.carbon.connector.utils.SimpleMongoClient;
  * Class mediator for finding many documents.
  * For more information, see https://docs.mongodb.com/manual/reference/method/db.collection.find
  */
-public class Find extends AbstractConnector {
+public class Find extends AbstractConnectorOperation {
 
     private static final String COLLECTION = "collection";
     private static final String QUERY = "query";
@@ -49,17 +50,18 @@ public class Find extends AbstractConnector {
     private static final String ERROR_MESSAGE = "Error occurred while searching for the documents in the database.";
 
     @Override
-    public void connect(MessageContext messageContext) throws ConnectException {
+    public void execute(MessageContext messageContext, String responseVariable, Boolean overwriteBody)
+            throws ConnectException {
 
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
         SimpleMongoClient simpleMongoClient;
 
-        String collection = (String) getParameter(messageContext, COLLECTION);
-        String query = (String) getParameter(messageContext, QUERY);
-        String projection = (String) getParameter(messageContext, PROJECTION);
-        String collation = (String) getParameter(messageContext, COLLATION);
-        String sort = (String) getParameter(messageContext, SORT);
-        String limitString = (String) getParameter(messageContext, LIMIT);
+        String collection = getMediatorParameter(messageContext, COLLECTION, String.class, false);
+        String query = getMediatorParameter(messageContext, QUERY, String.class, false);
+        String projection = getMediatorParameter(messageContext, PROJECTION, String.class, true);
+        String collation = getMediatorParameter(messageContext, COLLATION, String.class, true);
+        String sort = getMediatorParameter(messageContext, SORT, String.class, true);
+        String limitString = getMediatorParameter(messageContext, LIMIT, String.class, true);
 
         try {
             String connectionName = MongoUtils.getConnectionName(messageContext);
@@ -81,12 +83,13 @@ public class Find extends AbstractConnector {
                 limit = Integer.parseInt(limitString);
             }
 
-            JSONArray findResult = simpleMongoClient.findDocuments(collection, queryDoc, projection, collation, sort, limit);
+            JSONObject findResult = simpleMongoClient.findDocuments(collection, queryDoc, projection, collation, sort, limit);
 
             if (log.isDebugEnabled()) {
                 log.debug(FIND_RESULT + findResult);
             }
-            MongoUtils.setPayload(messageContext, findResult.toString());
+            handleConnectorResponse(messageContext, responseVariable, overwriteBody, findResult.toString(),
+                    null, null);
 
         } catch (IllegalArgumentException e) {
             MongoUtils.handleError(messageContext, e, MongoConstants.MONGODB_CONNECTIVITY, ERROR_MESSAGE);

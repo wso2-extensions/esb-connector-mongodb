@@ -21,22 +21,24 @@ package org.wso2.carbon.connector.operations;
 import com.mongodb.MongoException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.synapse.MessageContext;
+import org.apache.synapse.util.InlineExpressionUtil;
 import org.bson.Document;
+import org.jaxen.JaxenException;
 import org.json.JSONObject;
 import org.wso2.carbon.connector.connection.MongoConnection;
-import org.wso2.carbon.connector.core.AbstractConnector;
-import org.wso2.carbon.connector.core.ConnectException;
-import org.wso2.carbon.connector.core.connection.ConnectionHandler;
 import org.wso2.carbon.connector.exception.MongoConnectorException;
 import org.wso2.carbon.connector.utils.MongoConstants;
 import org.wso2.carbon.connector.utils.MongoUtils;
 import org.wso2.carbon.connector.utils.SimpleMongoClient;
+import org.wso2.integration.connector.core.AbstractConnectorOperation;
+import org.wso2.integration.connector.core.ConnectException;
+import org.wso2.integration.connector.core.connection.ConnectionHandler;
 
 /**
  * Class mediator for deleting one document.
  * For more information, see https://docs.mongodb.com/manual/reference/method/db.collection.deleteOne
  */
-public class DeleteOne extends AbstractConnector {
+public class DeleteOne extends AbstractConnectorOperation {
 
     private static final String COLLECTION = "collection";
     private static final String QUERY = "query";
@@ -46,14 +48,15 @@ public class DeleteOne extends AbstractConnector {
     private static final String ERROR_MESSAGE = "Error occurred while deleting the document from the database.";
 
     @Override
-    public void connect(MessageContext messageContext) throws ConnectException {
+    public void execute(MessageContext messageContext, String responseVariable, Boolean overwriteBody)
+            throws ConnectException {
 
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
         SimpleMongoClient simpleMongoClient;
 
-        String collection = (String) getParameter(messageContext, COLLECTION);
-        String query = (String) getParameter(messageContext, QUERY);
-        String collation = (String) getParameter(messageContext, COLLATION);
+        String collection = getMediatorParameter(messageContext, COLLECTION, String.class, false);
+        String query = getMediatorParameter(messageContext, QUERY, String.class, false);
+        String collation = getMediatorParameter(messageContext, COLLATION, String.class, true);
 
         try {
             String connectionName = MongoUtils.getConnectionName(messageContext);
@@ -74,7 +77,8 @@ public class DeleteOne extends AbstractConnector {
             if (log.isDebugEnabled()) {
                 log.debug(DELETE_RESULT + deleteResult);
             }
-            MongoUtils.setPayload(messageContext, deleteResult.toString());
+            handleConnectorResponse(messageContext, responseVariable, overwriteBody, deleteResult.toString(),
+                    null, null);
 
         } catch (IllegalArgumentException e) {
             MongoUtils.handleError(messageContext, e, MongoConstants.MONGODB_CONNECTIVITY, ERROR_MESSAGE);
