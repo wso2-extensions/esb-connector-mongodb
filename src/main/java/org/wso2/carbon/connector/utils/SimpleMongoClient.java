@@ -44,7 +44,6 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * The SimpleMongoClient class acts as a wrapper class
@@ -116,7 +115,11 @@ public class SimpleMongoClient {
         MongoCollection<Document> collection = this.database.getCollection(collectionName);
         InsertOneResult result = collection.insertOne(document);
         JSONObject insertResult = new JSONObject();
-        insertResult.put(INSERTED_ID, Objects.requireNonNull(result.getInsertedId()).asObjectId().getValue().toString());
+        
+        // Handle different ID types safely using helper method
+        String insertedIdValue = convertBsonValueToString(result.getInsertedId());
+        
+        insertResult.put(INSERTED_ID, insertedIdValue);
         insertResult.put(INSERTED_COUNT, 1);
         return insertResult;
     }
@@ -134,7 +137,8 @@ public class SimpleMongoClient {
         JSONArray insertedIds = new JSONArray();
 
         result.getInsertedIds().forEach((index, id) -> {
-            insertedIds.put(id.asObjectId().getValue().toString());
+            String idValue = convertBsonValueToString(id);
+            insertedIds.put(idValue);
         });
 
         insertResult.put(INSERTED_IDS, insertedIds);
@@ -232,11 +236,10 @@ public class SimpleMongoClient {
         JSONObject updateResult = new JSONObject();
         updateResult.put(MATCHED_COUNT, result.getMatchedCount());
         updateResult.put(MODIFIED_COUNT, result.getModifiedCount());
-        if (result.getUpsertedId() != null) {
-            updateResult.put(UPSERTED_ID, result.getUpsertedId().asObjectId().getValue().toString());
-        } else {
-            updateResult.put(UPSERTED_ID, result.getUpsertedId());
-        }
+        
+        // Handle different upserted ID types safely using helper method
+        String upsertedIdValue = convertBsonValueToString(result.getUpsertedId());
+        updateResult.put(UPSERTED_ID, upsertedIdValue);
         return updateResult;
     }
 
@@ -261,11 +264,10 @@ public class SimpleMongoClient {
         JSONObject updateResult = new JSONObject();
         updateResult.put(MATCHED_COUNT, result.getMatchedCount());
         updateResult.put(MODIFIED_COUNT, result.getModifiedCount());
-        if (result.getUpsertedId() != null) {
-            updateResult.put(UPSERTED_ID, result.getUpsertedId().asObjectId().getValue().toString());
-        } else {
-            updateResult.put(UPSERTED_ID, result.getUpsertedId());
-        }
+        
+        // Handle different upserted ID types safely using helper method
+        String upsertedIdValue = convertBsonValueToString(result.getUpsertedId());
+        updateResult.put(UPSERTED_ID, upsertedIdValue);
         return updateResult;
     }
 
@@ -297,6 +299,32 @@ public class SimpleMongoClient {
         JSONObject deleteResult = new JSONObject();
         deleteResult.put(DELETED_COUNT, result.getDeletedCount());
         return deleteResult;
+    }
+
+    /**
+     * Safely converts a BsonValue to a string representation, handling different BSON types.
+     * This prevents BsonInvalidOperationException when MongoDB returns different ID types.
+     *
+     * @param bsonValue The BsonValue to convert (can be null)
+     * @return String representation of the ID, or null if bsonValue is null
+     */
+    private static String convertBsonValueToString(org.bson.BsonValue bsonValue) {
+        if (bsonValue == null) {
+            return null;
+        }
+
+        switch (bsonValue.getBsonType()) {
+            case OBJECT_ID:
+                return bsonValue.asObjectId().getValue().toString();
+            case STRING:
+                return bsonValue.asString().getValue();
+            case INT32:
+                return String.valueOf(bsonValue.asInt32().getValue());
+            case INT64:
+                return String.valueOf(bsonValue.asInt64().getValue());
+            default:
+                return bsonValue.toString();
+        }
     }
 
     public void closeConnection() {
