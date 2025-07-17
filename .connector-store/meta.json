@@ -16,69 +16,713 @@
     ],
     "releases": [
         {
-            "tagName": "v3.0.1",
+            "tagName": "v3.0.2",
             "products": [
                 "MI 4.4.0"
             ],
             "operations": [
                 {
-                    "name": "init",
-                    "description": "MongoDB connection configuration.",
-                    "isHidden": true
-                },
-                {
-                    "name": "deleteOne",
-                    "description": "Removes a single document from a collection.",
-                    "isHidden": false
-                },
-                {
-                    "name": "deleteMany",
-                    "description": "Removes all documents that match the filter from a collection.",
+                    "name": "find",
+                    "description": "FindDocuments",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "query",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Specifies selection filter using query operators."
+                        },
+                        {
+                            "name": "projection",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the fields to return in the documents that match the query filter."
+                        },
+                        {
+                            "name": "collation",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the collation to use for the operation."
+                        },
+                        {
+                            "name": "sort",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the order in which the query returns matching documents."
+                        },
+                        {
+                            "name": "limit",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the maximum number of returned documents."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
                     "isHidden": false
                 },
                 {
                     "name": "findOne",
-                    "description": "Finds a single document in a collection.",
-                    "isHidden": false
-                },
-                {
-                    "name": "find",
-                    "description": "Finds several documents in a collection.",
-                    "isHidden": false
-                },
-                {
-                    "name": "insertOne",
-                    "description": "Inserts a document into a collection.",
-                    "isHidden": false
-                },
-                {
-                    "name": "insertMany",
-                    "description": "Inserts several documents into a collection.",
+                    "description": "DeleteManyDocuments",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "query",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Specifies selection filter using query operators."
+                        },
+                        {
+                            "name": "projection",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the fields to return in the documents that match the query filter."
+                        },
+                        {
+                            "name": "collation",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the collation to use for the operation."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
                     "isHidden": false
                 },
                 {
                     "name": "updateOne",
-                    "description": "Modifies an existing document in a collection.",
+                    "description": "UpdateOneDocument",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "query",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The selection criteria for the update."
+                        },
+                        {
+                            "name": "update",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The modifications to apply."
+                        },
+                        {
+                            "name": "upsert",
+                            "type": "comboOrExpression",
+                            "required": true,
+                            "defaultValue": "False",
+                            "description": "Creates a new document if no documents match the filter/query."
+                        },
+                        {
+                            "name": "collation",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the collation to use for the operation."
+                        },
+                        {
+                            "name": "arrayFilters",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Determines which array elements to modify."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "deleteMany",
+                    "description": "DeleteManyDocuments",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "query",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Specifies deletion criteria using query operators."
+                        },
+                        {
+                            "name": "collation",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the collation to use for the operation."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "insertOne",
+                    "description": "InsertOneDocument",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "document",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A document to insert into the collection."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "deleteOne",
+                    "description": "DeleteOneDocument",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "query",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Specifies deletion criteria using query operators."
+                        },
+                        {
+                            "name": "collation",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the collation to use for the operation."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
                     "isHidden": false
                 },
                 {
                     "name": "updateMany",
-                    "description": "Modifies several documents in a collection.",
+                    "description": "UpdateManyDocuments",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "query",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The selection criteria for the update."
+                        },
+                        {
+                            "name": "update",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The modifications to apply."
+                        },
+                        {
+                            "name": "upsert",
+                            "type": "comboOrExpression",
+                            "required": true,
+                            "defaultValue": "False",
+                            "description": "Creates a new document if no documents match the filter/query."
+                        },
+                        {
+                            "name": "collation",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the collation to use for the operation."
+                        },
+                        {
+                            "name": "arrayFilters",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Determines which array elements to modify."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
                     "isHidden": false
                 },
                 {
-                    "name": "aggregate",
-                    "description": "Aggregation to process multiple documents and return result.",
+                    "name": "insertMany",
+                    "description": "InsertManyDocuments",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "documents",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "An array of documents to insert into the collection."
+                        },
+                        {
+                            "name": "ordered",
+                            "type": "comboOrExpression",
+                            "required": true,
+                            "defaultValue": "True",
+                            "description": "Specifies whether the insert should be ordered or unordered."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
                     "isHidden": false
                 }
             ],
             "connections": [
                 {
                     "name": "MONGODB",
-                    "description": "Standard MongoDB connection with explicit parameters."
+                    "description": "MongoDB Connection",
+                    "params": [
+                        {
+                            "name": "connectionName",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "MONGODB_CONNECTION",
+                            "description": "The name for the MongoDB connection"
+                        },
+                        {
+                            "name": "inputType",
+                            "type": "comboOrExpression",
+                            "required": true,
+                            "defaultValue": "Connection String URI",
+                            "description": "Method to construct the connection URI. The connection string URI is a single string that contains all the information needed to connect to the database. The connection parameters are individual fields that can be used to construct the connection URI."
+                        },
+                        {
+                            "name": "useDnsSrvLookup",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Enable DNS SRV lookup for automatic server discovery. If not selected, you have to provide a seed list of hosts (if there are multiple hosts). If selected, the you have to provide the cluster root domain name (e.g. mongodb.example.com) in the host field. The driver will then use DNS SRV records to discover the hosts in the cluster."
+                        },
+                        {
+                            "name": "connectionURI",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The complete connection URI containing the server details, credentials, and the connection options. [prefix]://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]"
+                        },
+                        {
+                            "name": "database",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The name of the database."
+                        },
+                        {
+                            "name": "host",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The host where the MongoDB instance is running."
+                        },
+                        {
+                            "name": "port",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The port where the MongoDB instance is running."
+                        },
+                        {
+                            "name": "seedList",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The list of host and port pairs."
+                        },
+                        {
+                            "name": "database",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The name of the database."
+                        },
+                        {
+                            "name": "username",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "User's authentication credentials."
+                        },
+                        {
+                            "name": "password",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "User's authentication credentials."
+                        },
+                        {
+                            "name": "replicaSet",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the name of the replica set."
+                        },
+                        {
+                            "name": "authSource",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the database name associated with the user's credentials."
+                        },
+                        {
+                            "name": "authMechanism",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specify the authentication mechanism that MongoDB will use to authenticate the connection."
+                        },
+                        {
+                            "name": "authMechanismProperties",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specify properties for the specified authMechanism as a comma-separated list of colon-separated key-value pairs."
+                        },
+                        {
+                            "name": "gssapiServiceName",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Set the Kerberos service name when connecting to Kerberized MongoDB instances."
+                        },
+                        {
+                            "name": "w",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Corresponds to the write concern w Option."
+                        },
+                        {
+                            "name": "wtimeoutMS",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies a time limit, in milliseconds, for the write concern."
+                        },
+                        {
+                            "name": "journal",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Corresponds to the write concern j Option option."
+                        },
+                        {
+                            "name": "maxPoolSize",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum number of connections in the connection pool."
+                        },
+                        {
+                            "name": "minPoolSize",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The minimum number of connections in the connection pool."
+                        },
+                        {
+                            "name": "maxIdleTimeMS",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum number of milliseconds that a connection can remain idle in the pool before being removed and closed."
+                        },
+                        {
+                            "name": "waitQueueMultiple",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum number of threads allowed to wait for a connection to become available from the pool."
+                        },
+                        {
+                            "name": "waitQueueTimeoutMS",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum time in milliseconds that a thread can wait for a connection to become available."
+                        },
+                        {
+                            "name": "ssl",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The boolean to enable or disables TLS/SSL for the connection."
+                        },
+                        {
+                            "name": "sslInvalidHostNamesAllowed",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Disables hostname validation of the certificate presented by the mongod/mongos instance."
+                        },
+                        {
+                            "name": "connectTimeoutMS",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The time in milliseconds to attempt a connection before timing out."
+                        },
+                        {
+                            "name": "socketTimeoutMS",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The time in milliseconds to attempt a send or receive on a socket before the attempt times out."
+                        },
+                        {
+                            "name": "compressors",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Comma-delimited string of compressors to enable network compression for communication between this client and a mongod/mongos instance."
+                        },
+                        {
+                            "name": "zlibCompressionLevel",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "An integer that specifies the compression level if using zlib for network compression."
+                        },
+                        {
+                            "name": "readConcernLevel",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The level of isolation."
+                        },
+                        {
+                            "name": "readPreference",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the read preferences for this connection."
+                        },
+                        {
+                            "name": "maxStalenessSeconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies, in seconds, how stale a secondary can be before the client stops using it for read operations."
+                        },
+                        {
+                            "name": "readPreferenceTags",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the tags document as a comma-separated list of colon-separated key-value pairs."
+                        },
+                        {
+                            "name": "localThresholdMS",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The size (in milliseconds) of the latency window for selecting among multiple suitable MongoDB instances."
+                        },
+                        {
+                            "name": "serverSelectionTimeoutMS",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies how long (in milliseconds) to block for server selection before throwing an exception."
+                        },
+                        {
+                            "name": "serverSelectionTryOnce",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Single-threaded drivers only."
+                        },
+                        {
+                            "name": "heartbeatFrequencyMS",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Controls when the driver checks the state of the MongoDB deployment."
+                        },
+                        {
+                            "name": "appName",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specify a custom app name."
+                        },
+                        {
+                            "name": "retryReads",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Enables retryable reads."
+                        },
+                        {
+                            "name": "retryWrites",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Enable retryable writes."
+                        },
+                        {
+                            "name": "uuidRepresentation",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The type of UUID representation."
+                        }
+                    ]
                 }
-            ],
-            "isHidden": false
+            ]
         },
         {
             "tagName": "v2.0.1",
