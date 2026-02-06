@@ -58,5 +58,9 @@
             <file>updateMany.xml</file>
             <description>Modifies several documents in a collection.</description>
         </component>
+        <component name="aggregate">
+            <file>aggregate.xml</file>
+            <description>Aggregation to process multiple documents and return result.</description>
+        </component>
     </subComponents>
 </component>

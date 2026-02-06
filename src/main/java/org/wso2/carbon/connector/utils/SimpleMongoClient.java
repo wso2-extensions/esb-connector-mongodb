@@ -18,6 +18,7 @@
 
 package org.wso2.carbon.connector.utils;
 
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -325,6 +326,36 @@ public class SimpleMongoClient {
             default:
                 return bsonValue.toString();
         }
+    }
+
+    /**
+     * Aggregation pipeline operation to process data in a MongoDB collection and return computed results
+     * @param collectionName Name of the collection
+     * @param pipelines      List of aggregation pipelines or aggregation stages
+     * @return JSONArray Aggregation result in JSON array format
+     * @throws JSONException If the result cannot be converted to JSON
+     */
+    public JSONObject aggregationPipeline(String collectionName, List<Document> pipelines) throws JSONException {
+
+        MongoCollection<Document> collection = this.database.getCollection(collectionName);
+
+        AggregateIterable<Document> iterableAggregate = collection.aggregate(pipelines);
+        MongoCursor<Document> resultCursor = iterableAggregate.iterator();
+
+        JSONObject response = new JSONObject();
+        JSONArray resultArray = new JSONArray();
+        try {
+            while (resultCursor.hasNext()) {
+                Document result = resultCursor.next();
+                resultArray.put(new JSONObject(result.toJson()));
+            }
+        } finally {
+            resultCursor.close();
+        }
+        response.put(MongoConstants.DATA, resultArray);
+        response.put(MongoConstants.COUNT, resultArray.length());
+
+        return response;
     }
 
     public void closeConnection() {
