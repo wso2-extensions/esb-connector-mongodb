@@ -1,0 +1,63 @@
+{
+    "connectorName": "mongodb",
+    "operationName": "aggregate",
+    "title": "Aggregate",
+    "help": "<h1>Aggregate</h1> <b>The aggregation operation</b>",
+    "elements": [
+        {
+            "type": "attributeGroup",
+            "value": {
+                "groupName": "General",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                            "name": "configRef",
+                            "displayName": "Connection",
+                            "inputType": "connection",
+                            "allowedConnectionTypes": [
+                                "STANDARD",
+                                "DSL",
+                                "URI"
+                            ],
+                            "defaultType": "connection.standard",
+                            "defaultValue": "",
+                            "required": "true",
+                            "helpTip": "MongoDB connection to be used."
+                        }
+                    },
+                    {
+                        "type": "attributeGroup",
+                        "value": {
+                            "groupName": "Basic",
+                            "elements": [
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "collection",
+                                        "displayName": "Collection",
+                                        "inputType": "stringOrExpression",
+                                        "defaultValue": "",
+                                        "required": "true",
+                                        "helpTip": "A grouping of MongoDB documents."
+                                    }
+                                },
+                                {
+                                    "type": "attribute",
+                                    "value": {
+                                        "name": "stages",
+                                        "displayName": "Stages",
+                                        "inputType": "stringOrExpression",
+                                        "defaultValue": "",
+                                        "required": "true",
+                                        "helpTip": "Aggregation stages in json array format."
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
