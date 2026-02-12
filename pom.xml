@@ -55,6 +55,11 @@
             <version>${mongodb.driver.sync.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>bson</artifactId>
+            <version>${mongodb.driver.sync.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.synapse</groupId>
             <artifactId>synapse-core</artifactId>
             <version>${synapse.version}</version>

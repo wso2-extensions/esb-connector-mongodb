@@ -18,6 +18,7 @@
 
 package org.wso2.carbon.connector.utils;
 
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -60,6 +61,7 @@ public class SimpleMongoClient {
     private static final String NORMALIZATION = "normalization";
     private static final String FIND_ONE_RESULT = "{\"FindOneResult\": \"Not Found\"}";
     private static final String FIND_RESULT = "{\"FindResult\": \"Not Found\"}";
+    private static final String AGGREGATION_RESULT = "{\"AggregationResult\": \"Not Found\"}";
     private static final String MATCHED_COUNT = "matchedCount";
     private static final String MODIFIED_COUNT = "modifiedCount";
     private static final String UPSERTED_ID = "upsertedId";
@@ -264,6 +266,35 @@ public class SimpleMongoClient {
         JSONObject deleteResult = new JSONObject();
         deleteResult.put(DELETED_COUNT, result.getDeletedCount());
         return deleteResult;
+    }
+
+    /**
+     * Aggregation pipeline operation to process data in a MongoDB collection and return computed results
+     * @param collectionName Name of the collection
+     * @param pipelines      List of aggregation pipelines or aggregation stages
+     * @return JSONArray Aggregation result in JSON array format
+     * @throws JSONException If the result cannot be converted to JSON
+     */
+    public JSONArray aggregationPipeline(String collectionName, List<Document> pipelines) throws JSONException {
+
+        MongoCollection<Document> collection = this.database.getCollection(collectionName);
+
+        AggregateIterable<Document> iterableAggregate = collection.aggregate(pipelines);
+        MongoCursor<Document> resultCursor = iterableAggregate.iterator();
+
+        JSONArray resultArray = new JSONArray();
+        try {
+            while (resultCursor.hasNext()) {
+                Document result = resultCursor.next();
+                resultArray.put(new JSONObject(result.toJson()));
+            }
+        } finally {
+            resultCursor.close();
+        }
+        if (resultArray.isNull(0)) {
+            resultArray.put(new JSONObject(AGGREGATION_RESULT));
+        }
+        return resultArray;
     }
 
     public void closeConnection() {
