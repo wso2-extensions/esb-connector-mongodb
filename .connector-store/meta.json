@@ -16,7 +16,7 @@
     ],
     "releases": [
         {
-            "tagName": "v3.0.2",
+            "tagName": "v3.0.3",
             "products": [
                 "MI 4.4.0",
                 "MI 4.5.0"
@@ -403,6 +403,41 @@
                             "required": true,
                             "defaultValue": "True",
                             "description": "Specifies whether the insert should be ordered or unordered."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "aggregate",
+                    "description": "Aggregate",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "stages",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Aggregation stages in json array format."
                         },
                         {
                             "name": "responseVariable",
