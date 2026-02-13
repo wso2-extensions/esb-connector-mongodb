@@ -16,12 +16,166 @@
     ],
     "releases": [
         {
-            "tagName": "v3.0.2",
+            "tagName": "v3.0.3",
             "products": [
                 "MI 4.4.0",
                 "MI 4.5.0"
             ],
             "operations": [
+                {
+                    "name": "updateMany",
+                    "description": "UpdateManyDocuments",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "query",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The selection criteria for the update."
+                        },
+                        {
+                            "name": "update",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The modifications to apply."
+                        },
+                        {
+                            "name": "upsert",
+                            "type": "comboOrExpression",
+                            "required": true,
+                            "defaultValue": "False",
+                            "description": "Creates a new document if no documents match the filter/query."
+                        },
+                        {
+                            "name": "collation",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the collation to use for the operation."
+                        },
+                        {
+                            "name": "arrayFilters",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Determines which array elements to modify."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "findOne",
+                    "description": "DeleteManyDocuments",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "query",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Specifies selection filter using query operators."
+                        },
+                        {
+                            "name": "projection",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the fields to return in the documents that match the query filter."
+                        },
+                        {
+                            "name": "collation",
+                            "type": "textAreaOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Specifies the collation to use for the operation."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "insertMany",
+                    "description": "InsertManyDocuments",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "documents",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "An array of documents to insert into the collection."
+                        },
+                        {
+                            "name": "ordered",
+                            "type": "comboOrExpression",
+                            "required": true,
+                            "defaultValue": "True",
+                            "description": "Specifies whether the insert should be ordered or unordered."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
+                    "isHidden": false
+                },
                 {
                     "name": "find",
                     "description": "FindDocuments",
@@ -86,7 +240,42 @@
                     "isHidden": false
                 },
                 {
-                    "name": "findOne",
+                    "name": "insertOne",
+                    "description": "InsertOneDocument",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "document",
+                            "type": "textAreaOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A document to insert into the collection."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "deleteMany",
                     "description": "DeleteManyDocuments",
                     "params": [
                         {
@@ -101,14 +290,7 @@
                             "type": "textAreaOrExpression",
                             "required": true,
                             "defaultValue": "",
-                            "description": "Specifies selection filter using query operators."
-                        },
-                        {
-                            "name": "projection",
-                            "type": "textAreaOrExpression",
-                            "required": false,
-                            "defaultValue": "",
-                            "description": "Specifies the fields to return in the documents that match the query filter."
+                            "description": "Specifies deletion criteria using query operators."
                         },
                         {
                             "name": "collation",
@@ -116,6 +298,41 @@
                             "required": false,
                             "defaultValue": "",
                             "description": "Specifies the collation to use for the operation."
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Name of the variable to which the output of the operation should be assigned"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "aggregate",
+                    "description": "Aggregate",
+                    "params": [
+                        {
+                            "name": "collection",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "A grouping of MongoDB documents."
+                        },
+                        {
+                            "name": "stages",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Aggregation stages in json array format."
                         },
                         {
                             "name": "responseVariable",
@@ -198,83 +415,6 @@
                     "isHidden": false
                 },
                 {
-                    "name": "deleteMany",
-                    "description": "DeleteManyDocuments",
-                    "params": [
-                        {
-                            "name": "collection",
-                            "type": "stringOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "A grouping of MongoDB documents."
-                        },
-                        {
-                            "name": "query",
-                            "type": "textAreaOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "Specifies deletion criteria using query operators."
-                        },
-                        {
-                            "name": "collation",
-                            "type": "textAreaOrExpression",
-                            "required": false,
-                            "defaultValue": "",
-                            "description": "Specifies the collation to use for the operation."
-                        },
-                        {
-                            "name": "responseVariable",
-                            "type": "string",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "Name of the variable to which the output of the operation should be assigned"
-                        },
-                        {
-                            "name": "overwriteBody",
-                            "type": "checkbox",
-                            "required": false,
-                            "defaultValue": "false",
-                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
-                        }
-                    ],
-                    "isHidden": false
-                },
-                {
-                    "name": "insertOne",
-                    "description": "InsertOneDocument",
-                    "params": [
-                        {
-                            "name": "collection",
-                            "type": "stringOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "A grouping of MongoDB documents."
-                        },
-                        {
-                            "name": "document",
-                            "type": "textAreaOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "A document to insert into the collection."
-                        },
-                        {
-                            "name": "responseVariable",
-                            "type": "string",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "Name of the variable to which the output of the operation should be assigned"
-                        },
-                        {
-                            "name": "overwriteBody",
-                            "type": "checkbox",
-                            "required": false,
-                            "defaultValue": "false",
-                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
-                        }
-                    ],
-                    "isHidden": false
-                },
-                {
                     "name": "deleteOne",
                     "description": "DeleteOneDocument",
                     "params": [
@@ -298,111 +438,6 @@
                             "required": false,
                             "defaultValue": "",
                             "description": "Specifies the collation to use for the operation."
-                        },
-                        {
-                            "name": "responseVariable",
-                            "type": "string",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "Name of the variable to which the output of the operation should be assigned"
-                        },
-                        {
-                            "name": "overwriteBody",
-                            "type": "checkbox",
-                            "required": false,
-                            "defaultValue": "false",
-                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
-                        }
-                    ],
-                    "isHidden": false
-                },
-                {
-                    "name": "updateMany",
-                    "description": "UpdateManyDocuments",
-                    "params": [
-                        {
-                            "name": "collection",
-                            "type": "stringOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "A grouping of MongoDB documents."
-                        },
-                        {
-                            "name": "query",
-                            "type": "textAreaOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "The selection criteria for the update."
-                        },
-                        {
-                            "name": "update",
-                            "type": "textAreaOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "The modifications to apply."
-                        },
-                        {
-                            "name": "upsert",
-                            "type": "comboOrExpression",
-                            "required": true,
-                            "defaultValue": "False",
-                            "description": "Creates a new document if no documents match the filter/query."
-                        },
-                        {
-                            "name": "collation",
-                            "type": "textAreaOrExpression",
-                            "required": false,
-                            "defaultValue": "",
-                            "description": "Specifies the collation to use for the operation."
-                        },
-                        {
-                            "name": "arrayFilters",
-                            "type": "textAreaOrExpression",
-                            "required": false,
-                            "defaultValue": "",
-                            "description": "Determines which array elements to modify."
-                        },
-                        {
-                            "name": "responseVariable",
-                            "type": "string",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "Name of the variable to which the output of the operation should be assigned"
-                        },
-                        {
-                            "name": "overwriteBody",
-                            "type": "checkbox",
-                            "required": false,
-                            "defaultValue": "false",
-                            "description": "Replace the Message Body in Message Context with the output of the operation (This will remove the payload from the above variable)."
-                        }
-                    ],
-                    "isHidden": false
-                },
-                {
-                    "name": "insertMany",
-                    "description": "InsertManyDocuments",
-                    "params": [
-                        {
-                            "name": "collection",
-                            "type": "stringOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "A grouping of MongoDB documents."
-                        },
-                        {
-                            "name": "documents",
-                            "type": "textAreaOrExpression",
-                            "required": true,
-                            "defaultValue": "",
-                            "description": "An array of documents to insert into the collection."
-                        },
-                        {
-                            "name": "ordered",
-                            "type": "comboOrExpression",
-                            "required": true,
-                            "defaultValue": "True",
-                            "description": "Specifies whether the insert should be ordered or unordered."
                         },
                         {
                             "name": "responseVariable",
